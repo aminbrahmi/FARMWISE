@@ -21,13 +21,15 @@ Agriculture faces growing challenges, including climate change, resource optimiz
 # Clone the repository
 git clone https://github.com/aminbrahmi/FARMWISE.git
 
-## 🌱 Team Members  
-- **Sana Khiari** [sana.khiari@esprit.tn](mailto:sana.khiari@esprit.tn)  
-- **Mehdi Bchir** [mehdi.bchir@esprit.tn](mailto:mehdi.bchir@esprit.tn)  
-- **Oumaima Bel Haj** [benhaj.oumaima@esprit.tn](mailto:benhaj.oumaima@esprit.tn)  
-- **Mohamed Amine Brahmi** [brahmi.mohamedAmine@esprit.tn](mailto:brahmi.mohamedAmine@esprit.tn)  
-- **Ines Neji** [neji.ines1@esprit.tn](mailto:neji.ines1@esprit.tn)  
-- **Sarra Bouden** [sarra.bouden@esprit.tn](mailto:sarra.bouden@esprit.tn)  
 
-## 🙌 Acknowledgments  
-Special thanks to **Esprit** for their support and guidance!
+## 🌱𝐓𝐞𝐚𝐦 𝐌𝐞𝐦𝐛𝐞𝐫𝐬
+- **Sana Khiari** - [sana.khiari@esprit.tn](mailto:sana.khiari@esprit.tn)  
+- **Mehdi Bchir** - [mehdi.bchir@esprit.tn](mailto:mehdi.bchir@esprit.tn)  
+- **Oumaima Bel Haj** - [benhaj.oumaima@esprit.tn](mailto:benhaj.oumaima@esprit.tn)  
+- **Mohamed Amine Brahmi** - [brahmi.mohamedAmine@esprit.tn](mailto:brahmi.mohamedAmine@esprit.tn)  
+- **Ines Neji** - [neji.ines1@esprit.tn](mailto:neji.ines1@esprit.tn)  
+- **Sarra Bouden** - [sarra.bouden@esprit.tn](mailto:sarra.bouden@esprit.tn)
+
+## 🙌 𝐀𝐜𝐤𝐧𝐨𝐰𝐥𝐞𝐝𝐠𝐦𝐞𝐧𝐭𝐬   
+Special thanks to **Esprit** for their support and guidance!   the last part of team member is not structured 
+
