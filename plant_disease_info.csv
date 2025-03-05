@@ -1,0 +1,16 @@
+Maladie,Description,Solution
+"Pepper_bell__Bacterial_spot,Tâches sombres sur les feuilles et fruits causées par des bactéries.,""Utiliser des semences résistantes, éviter une humidité excessive et appliquer des traitements bactéricides."""
+Pepper_bell__healthy,Aucune maladie détectée. La plante est en bonne santé.,Maintenir de bonnes pratiques agricoles pour éviter les maladies.
+Potato__Early_blight,Taches brunes irrégulières avec des cercles concentriques sur les feuilles.,Éviter l'arrosage excessif et appliquer des fongicides adaptés.
+Potato__healthy,Aucune maladie détectée. La plante est en bonne santé.,Maintenir de bonnes pratiques agricoles pour éviter les maladies.
+Potato__Late_blight,Taches noires qui s'étendent rapidement sur les feuilles et les tubercules.,Utiliser des variétés résistantes et des fongicides préventifs.
+Tomato_Target_Spot,Taches cibles avec un centre clair entouré d'un bord sombre sur les feuilles et fruits.,Appliquer des fongicides et éviter une humidité prolongée.
+Tomato_Tomato_mosaic_virus,Feuilles tachetées et déformées causées par le virus de la mosaïque.,Éliminer les plantes infectées et désinfecter les outils de jardinage.
+Tomato__Tomato_YellowLeaf__Curl_Virus,Feuilles jaunes recourbées causées par un virus transmis par les aleurodes.,Contrôler les aleurodes avec des insecticides et utiliser des variétés résistantes.
+Tomato_Bacterial_spot,Petites taches sombres sur les feuilles et les fruits des tomates causées par des bactéries.,Pratiquer la rotation des cultures et utiliser des produits bactéricides.
+Tomato_Early_blight,Taches sombres entourées de cercles concentriques sur les feuilles.,Éliminer les feuilles infectées et appliquer des fongicides.
+Tomato_healthy,Aucune maladie détectée. La plante est en bonne santé.,Continuer les bonnes pratiques pour éviter les maladies.
+Tomato_Late_blight,Taches d'eau qui deviennent noires sur les feuilles et fruits.,Éviter les conditions humides prolongées et appliquer des fongicides.
+Tomato_Leaf_Mold,Moisissure jaune ou brune sur la face inférieure des feuilles.,Améliorer la ventilation et appliquer des traitements anti-moisissures.
+Tomato_Septoria_leaf_spot,Taches rondes et sombres avec un centre clair sur les feuilles inférieures.,Enlever les feuilles affectées et appliquer des fongicides spécifiques.
+Tomato_Spider_mites_Two_spotted_spider_mite,Feuilles jaunissantes avec présence de toiles d'araignée fines.,Utiliser des acaricides et augmenter l'humidité pour réduire les infestations.
