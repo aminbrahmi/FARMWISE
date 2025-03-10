@@ -1,0 +1,212 @@
+Composante,prix,Type
+ 2-4-D,28.0,Herbicide
+ 2-4-D,26.0,Herbicide
+Bentazone,72.0,Herbicide
+Cléothodine,68.5,Herbicide
+Dicamba+2-4-D,40.0,Herbicide
+Glyphosate (20l),310.0,Herbicide
+Glyphosate1,13.0,Herbicide
+Glyphosate2,18.0,Herbicide
+Prosulfocarb,44.0,Herbicide
+Traisulfuran+Dicamba,209.0,Herbicide
+Tribuneron-Methyl,1380.0,Herbicide
+ Glyphosate3,30.0,Herbicide
+2-4-D 3,40.0,Herbicide
+ Bentazone 3(basagran),120.0,Herbicide
+Prosulfocarb3,50.0,Herbicide
+Dicamba+2-4-D (dialen super)3,60.0,Herbicide
+ Cléothodine (select super)3,90.0,Herbicide
+Traisulfuran+Dicamba (zoom)3,260.0,Herbicide
+Tribuneron-Methyl (granstar)3,1400.0,Herbicide
+ Mitribuzine3,210.0,Herbicide
+ Glyphosate3,30.0,Herbicide
+2-4-D 3,40.0,Herbicide
+ Bentazone 3(basagran),120.0,Herbicide
+Prosulfocarb3,50.0,Herbicide
+Dicamba+2-4-D (dialen super)3,60.0,Herbicide
+ Cléothodine (select super)3,90.0,Herbicide
+Traisulfuran+Dicamba (zoom)3,260.0,Herbicide
+Tribuneron-Methyl (granstar)3,1400.0,Herbicide
+ Mitribuzine3,210.0,Herbicide
+Glyphosate2,27.0,Herbicide
+Mitribuzine2,55.0,Herbicide
+RAPSAN,82.604,Herbicide
+SWIPE,164.0,Herbicide
+NIKOS,72.0,Herbicide
+SELECT SUPER,75.0,Herbicide
+MATON,43.0,Herbicide
+FIGHTER,83.0,Herbicide
+FLURAL,44.555,Herbicide
+SIMAKEY,47.0,Herbicide
+KALASH,18.0,Herbicide
+BOXER,46.0,Herbicide
+ manébe2,25.0,Fongicide
+ trifloxysrobin (50 gr),30.0,Fongicide
+  propamocarbe2,100.0,Fongicide
+ dodine2,45.0,Fongicide
+Cuivre Métal 50% (10Kg),270.0,Fongicide
+Cuivre Métal 50%(1),25.5,Fongicide
+Cuivre Métal 50%(2),60.0,Fongicide
+Epoxiconazole (opus),133.0,Fongicide
+Epoxiconazole+ Kerosym methyl (ogam),191.0,Fongicide
+Epoxiconazole+ thiophanate methyl (rex duo),171.0,Fongicide
+Mancozèbe1,21.0,Fongicide
+Mancozèbe2,25.0,Fongicide
+Propiconazole+ cyproconazole,176.0,Fongicide
+Pyraclostrobine+ Epxiconazole (favia max),147.0,Fongicide
+Soufre mouillable1,6.0,Fongicide
+Soufre mouillable2,7.5,Fongicide
+Thiophanate-Méthyl (500 g),19.0,Fongicide
+Thiophanate-Méthyl1,40.0,Fongicide
+Thiophanate-Méthyl2,50.0,Fongicide
+Zirame,25.0,Fongicide
+Thiophanate-Méthyl3,45.0,Fongicide
+Soufre mouillable3,10.0,Fongicide
+Cuivre Métal 50%(3),60.0,Fongicide
+Mancozèbe3,40.0,Fongicide
+ dodine3,35.0,Fongicide
+ manébe2,23.0,Fongicide
+  propamocarbe3,120.0,Fongicide
+ trifloxysrobin3,600.0,Fongicide
+fosétyl-Al3,120.0,Fongicide
+myclobutanil3,250.0,Fongicide
+penconazole3,170.0,Fongicide
+tébuconazole3,200.0,Fongicide
+Thiophanate-Méthyl2,50.0,Fongicide
+Soufre mouillable2,8.5,Fongicide
+Cuivre Métal 50%(2),35.0,Fongicide
+Mancozèbe2,25.0,Fongicide
+ trifloxysrobin2 ,35.0,Fongicide
+fosétyl-Al2,130.0,Fongicide
+tébuconazole2,490.0,Fongicide
+ manébe3,30.0,Fongicide
+ propamocarbe2,100.0,Fongicide
+myclobutanil3,250.0,Fongicide
+penconazole3,170.0,Fongicide
+  propamocarbe3,120.0,Fongicide
+tébuconazole3,200.0,Fongicide
+ trifloxysrobin3,600.0,Fongicide
+Thiophanate-Méthyl2,55.0,Fongicide
+Soufre mouillable2,8.5,Fongicide
+Cuivre Métal 50%(2),67.0,Fongicide
+Zirame2,37.0,Fongicide
+Mancozèbe2,25.0,Fongicide
+ dodine2,65.0,Fongicide
+fosétyl-Al2,130.0,Fongicide
+ manébe2,23.0,Fongicide
+myclobutanil2,140.0,Fongicide
+tébuconazole2,520.0,Fongicide
+uniform,98.0,Fongicide
+ trifloxysrobin2 ,35.0,Fongicide
+CELEST_TOP,190.0,Fongicide
+Thiophanate-Méthyl2,60.0,Fongicide
+Soufre mouillable2,12.0,Fongicide
+Cuivre Métal 50%(2),40.0,Fongicide
+Zirame2,35.0,Fongicide
+Mancozèbe2,35.0,Fongicide
+ dodine2,70.0,Fongicide
+fosétyl-Al2,150.0,Fongicide
+ manébe2,23.0,Fongicide
+myclobutanil2,125.0,Fongicide
+ propamocarbe2,110.0,Fongicide
+tébuconazole2,520.0,Fongicide
+uniform,98.0,Fongicide
+ trifloxysrobin2 ,35.0,Fongicide
+Thiophanate-Méthyl2,65.0,Fongicide
+Soufre mouillable2,15.0,Fongicide
+Cuivre Métal 50%(2),50.0,Fongicide
+Zirame2,55.0,Fongicide
+Mancozèbe2,40.0,Fongicide
+ dodine2,60.0,Fongicide
+fosétyl-Al2,160.0,Fongicide
+ manébe2,30.0,Fongicide
+ propamocarbe2,130.0,Fongicide
+tébuconazole2,600.0,Fongicide
+ trifloxysrobin2 ,40.0,Fongicide
+Huile minérale1,8.3,Insecticide
+Huile minérale2,9.0,Insecticide
+Acétamipride1,255.0,Insecticide
+Acétamipride2,280.0,Insecticide
+Diméthoate1,33.5,Insecticide
+Diméthoate2,50.0,Insecticide
+Deltametrine1,37.0,Insecticide
+Deltametrine2,75.0,Insecticide
+Chlorpyriphos Ethyl1,42.0,Insecticide
+Chlorpyriphos Ethyl2,40.0,Insecticide
+ Abamectine2(1l),120.0,Insecticide
+Deltametrine1,38.0,Insecticide
+Diméthoate (1l),34.0,Insecticide
+thiaclopride (500 ml),230.0,Insecticide
+thiaclopride et déltaméthrine (1l),155.0,Insecticide
+Sulfoxaflor (250 ml ),140.0,Insecticide
+Fenazaquin (1l),180.0,Insecticide
+Pyriproxyfène (1l),115.0,Insecticide
+Chlorpyriphos Ethyl (250 ml),19.0,Insecticide
+Huille minérale (20l),180.0,Insecticide
+Acétamipride2,315.0,Insecticide
+Diméthoate2,42.0,Insecticide
+Deltametrine2,73.0,Insecticide
+Chlorpyriphos Ethyl2,48.0,Insecticide
+ Abamectine2(1l),200.0,Insecticide
+ Cyperméthrine2 (1l),65.0,Insecticide
+Spinosade2 (100ml),105.0,Insecticide
+Pyriproxyféne2 ( Proximo EC),135.0,Insecticide
+Fenazaquin2 ( Magister)250ml,53.0,Insecticide
+Sulfoxaflor2 (250 ml),155.0,Insecticide
+Thiaclopride2 ( calypso),235.0,Insecticide
+Imidaclopride2 (1l),150.0,Insecticide
+Imidaclopride 3,300.0,Insecticide
+Huile minérale3,15.0,Insecticide
+Acétamipride3,280.0,Insecticide
+Diméthoate3,45.0,Insecticide
+Deltametrine3,75.0,Insecticide
+Chlorpyriphos Ethyl3,50.0,Insecticide
+ Abamectine3,180.0,Insecticide
+ Cyperméthrine 3,60.0,Insecticide
+Spinosade 240g/l(3),1200.0,Insecticide
+Malathion,55.0,Insecticide
+Imidaclopride2 (1l),155.0,Insecticide
+Huile minérale2,18.0,Insecticide
+Acétamipride2,320.0,Insecticide
+Diméthoate2,45.0,Insecticide
+Deltametrine2,96.0,Insecticide
+Chlorpyriphos Ethyl2,58.0,Insecticide
+ Abamectine2(1l),208.0,Insecticide
+ Cyperméthrine2 (1l),65.0,Insecticide
+Spinosade2 (100ml),105.0,Insecticide
+Pyriproxyféne2 ( Proximo EC),135.0,Insecticide
+Fenazaquin2 ( Magister)250ml,53.0,Insecticide
+Sulfoxaflor2 (250 ml),155.0,Insecticide
+Thiaclopride2 ( calypso),235.0,Insecticide
+voliam targo,125.0,Insecticide
+beseige,160.0,Insecticide
+proclaim,130.0,Insecticide
+takumi,65.0,Insecticide
+coragen,160.0,Insecticide
+sivanto prime,150.0,Insecticide
+kungfu,86.0,Insecticide
+Imidaclopride2 (1l),345.0,Insecticide
+Huile minérale2,18.0,Insecticide
+Acétamipride2,385.0,Insecticide
+Diméthoate2,45.0,Insecticide
+Deltametrine2,110.0,Insecticide
+Chlorpyriphos Ethyl2,50.0,Insecticide
+ Abamectine2(1l),208.0,Insecticide
+Chlorpyriphos Ethyl2,50.0,Insecticide
+ Cyperméthrine2 (1l),50.0,Insecticide
+Spinosade2 (100ml),110.0,Insecticide
+Pyriproxyféne2 ( Proximo EC),115.0,Insecticide
+Fenazaquin2 ( Magister)250ml,50.0,Insecticide
+Sulfoxaflor2 (250 ml),155.0,Insecticide
+Thiaclopride2 ( calypso),250.0,Insecticide
+Imidaclopride2 (1l),380.0,Insecticide
+Huile minérale2,20.0,Insecticide
+Acétamipride2,385.0,Insecticide
+Deltametrine2,110.0,Insecticide
+Chlorpyriphos Ethyl2,55.0,Insecticide
+ Abamectine2(1l),190.0,Insecticide
+ Cyperméthrine2 (1l),60.0,Insecticide
+Spinosade2 (100ml),110.0,Insecticide
+Pyriproxyféne2 ( Proximo EC),145.0,Insecticide
+Fenazaquin2 ( Magister)250ml,55.0,Insecticide
+Thiaclopride2 ( calypso),180.0,Insecticide
