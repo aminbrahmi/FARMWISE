@@ -15,13 +15,16 @@ Agriculture faces growing challenges, including climate change, resource optimiz
 - **Data Sources**: Satellite imagery, weather APIs, government agricultural datasets  
 - **Tools**: Jupyter Notebook, Git, and more  
 
-## 🌱 Team Members
-- **Sana Khiari** - [sana.khiari@esprit.tn](mailto:sana.khiari@esprit.tn)  
-- **Mehdi Bchir** - [mehdi.bchir@esprit.tn](mailto:mehdi.bchir@esprit.tn)  
-- **Oumaima Bel Haj** - [benhaj.oumaima@esprit.tn](mailto:benhaj.oumaima@esprit.tn)  
-- **Mohamed Amine Brahmi** - [brahmi.mohamedAmine@esprit.tn](mailto:brahmi.mohamedAmine@esprit.tn)  
-- **Ines Neji** - [neji.ines1@esprit.tn](mailto:neji.ines1@esprit.tn)  
-- **Sarra Bouden** - [sarra.bouden@esprit.tn](mailto:sarra.bouden@esprit.tn)  
+## 🌱 Team  
+
+| Role               | Member               | Contact                              |
+|--------------------|----------------------|--------------------------------------|
+| **Solution Architect**   | Sana Khiari          | [sana.khiari@esprit.tn](mailto:sana.khiari@esprit.tn) |
+| **Solution Architect**    | Mehdi Bchir          | [mehdi.bchir@esprit.tn](mailto:mehdi.bchir@esprit.tn) |
+| **Data Scientist**   | Oumaima BenHaj      | [benhaj.oumaima@esprit.tn](mailto:benhaj.oumaima@esprit.tn) |
+| **Project Manager**    | Mohamed Amine Brahmi | [brahmi.mohamedAmine@esprit.tn](mailto:brahmi.mohamedAmine@esprit.tn) |
+| **Project Lead**  | Ines Neji            | [neji.ines1@esprit.tn](mailto:neji.ines1@esprit.tn) |
+| **Data Scientist**  | Sarra Bouden         | [sarra.bouden@esprit.tn](mailto:sarra.bouden@esprit.tn) |
 ---
 
 ## 🙌 Acknowledgments  
