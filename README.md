@@ -29,8 +29,8 @@ Agriculture faces growing challenges, including climate change, resource optimiz
 
 ## 🙌 Acknowledgments  
 
-<img src="https://img.shields.io/badge/Supported%20by-ESPRIT-blue?style=flat" alt="ESPRIT">  
-<img src="https://img.shields.io/badge/Powered%20by-TensorFlow-FF6F00?logo=tensorflow" alt="TensorFlow">  
-<img src="https://img.shields.io/badge/Thanks%20to-Farmers-4CAF50?logo=agriculture" alt="Farmers">  
+- 🎓 **ESPRIT** for academic guidance.  
+- 🔧 **Open-source communities** for tools like [TensorFlow](https://www.tensorflow.org/) and [Pandas](https://pandas.pydata.org/).  
+- 🌱 **Farmers & Agronomists** who shared their domain expertise.  
 
 
