@@ -2,8 +2,11 @@
 
 ## 📌 Overview  
 <p align="center">
-  <img src="https://i.ibb.co/Jw8DfCBH/logo-solarius.png" alt="Farmwise Logo" width="300">
+  <a href="https://ibb.co/G4GzKFxR" target="_blank">
+    <img src="https://i.ibb.co/Jw8DfCBH/logo-solarius.png" alt="Farmwise Logo" width="250" style="border: 1px solid #eee;">
+  </a>
 </p>
+
 
 
 Agriculture faces growing challenges, including climate change, resource optimization, and food security. The **Farmwise** is an academic project for the 4th year of Data Science Engineering at **Esprit**. This project leverages **data science** to provide actionable insights that help farmers and agricultural businesses enhance productivity and sustainability.  
