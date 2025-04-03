@@ -1,7 +1,16 @@
 # 🌾 Farmwise  Project  
 
 ## 📌 Overview  
-![Farmwise Logo](https://ibb.co/G4GzKFxR)
+<p align="center">
+  <img src="https://i.ibb.co/G4GzKFxR/logo.png" alt="Farmwise Logo" width="300">
+</p>
+
+# 🌾 Farmwise - Data-Driven Agricultural Solutions
+
+**Transformant les données en récoltes intelligentes**  
+*Un projet ESPRIT Data Science Engineering*
+
+
 Agriculture faces growing challenges, including climate change, resource optimization, and food security. The **Farmwise** is an academic project for the 4th year of Data Science Engineering at **Esprit**. This project leverages **data science** to provide actionable insights that help farmers and agricultural businesses enhance productivity and sustainability.  
 
 ## 🎯 Objectives  
