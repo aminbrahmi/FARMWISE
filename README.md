@@ -28,6 +28,9 @@ Agriculture faces growing challenges, including climate change, resource optimiz
 ---
 
 ## 🙌 Acknowledgments  
-Special thanks to **Esprit** for their support and guidance!
+
+<img src="https://img.shields.io/badge/Supported%20by-ESPRIT-blue?style=flat" alt="ESPRIT">  
+<img src="https://img.shields.io/badge/Powered%20by-TensorFlow-FF6F00?logo=tensorflow" alt="TensorFlow">  
+<img src="https://img.shields.io/badge/Thanks%20to-Farmers-4CAF50?logo=agriculture" alt="Farmers">  
 
 
