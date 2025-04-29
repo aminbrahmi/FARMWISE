@@ -1,4 +1,5 @@
 🌾 Agricultural Land Price Prediction in Tunisia
+
 This project aims to predict the price per square meter (TND/m²) of agricultural lands in Tunisia based on a wide range of features such as location, land size, proximity to the sea or city, infrastructure availability, type of agriculture, and other property characteristics.
 
 🎯 Objective
