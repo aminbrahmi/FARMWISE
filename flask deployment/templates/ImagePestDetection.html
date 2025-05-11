@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pest Detection from image</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center; /* Center the main container */
+        align-items: center;
+        min-height: 100vh; /* Ensure the body takes at least the full viewport height */
+        background-color: #f4f4f4;
+        color: #333;
+        margin: 0; /* Remove default body margins */
+      }
+
+      .main-container {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        text-align: center;
+        width: 90%; /* Adjust as needed */
+        max-width: 600px; /* Limit maximum width */
+        animation: fadeIn 0.5s ease-out; /* Initial fade-in animation */
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 30px;
+        animation: slideDown 0.6s ease-out 0.2s backwards; /* Slide down animation */
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .upload-container {
+        margin-bottom: 30px;
+        animation: fadeInUp 0.6s ease-out 0.4s backwards; /* Fade in up animation */
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .upload-container input[type="file"] {
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .upload-container input[type="submit"] {
+        background-color: #5cb85c;
+        color: white;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background-color 0.3s ease;
+      }
+
+      .upload-container input[type="submit"]:hover {
+        background-color: #4cae4c;
+      }
+
+      .image-container {
+        margin-top: 30px;
+        text-align: center;
+        animation: scaleUp 0.5s ease-out 0.6s backwards; /* Scale up animation */
+      }
+
+      @keyframes scaleUp {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .image-container h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+      }
+
+      .uploaded-image {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+
+      #prediction-result {
+        margin-top: 40px;
+        padding: 30px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background-color: #f9f9f9;
+        text-align: left;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+        animation: slideInLeft 0.6s ease-out 0.8s backwards; /* Slide in from left animation */
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      #prediction-result h2 {
+        color: #2c3e50;
+        margin-top: 0;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 12px;
+      }
+
+      #prediction-result p {
+        margin-bottom: 12px;
+      }
+
+      #prediction-result strong {
+        font-weight: bold;
+        color: #333;
+      }
+
+      .harmful {
+        color: #e74c3c;
+        font-weight: bold;
+      }
+
+      .not-harmful {
+        color: #2ecc71;
+        font-weight: bold;
+      }
+
+      #pest-details {
+        margin-top: 25px;
+        padding-top: 18px;
+        border-top: 1px solid #eee;
+        text-align: left;
+      }
+
+      #pest-details h3 {
+        color: #2c3e50;
+        margin-top: 0;
+        margin-bottom: 12px;
+      }
+
+      #pest-details p {
+        line-height: 1.7;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'sidebar.html' %}
+    <div class="main-container">
+      <h1>Pest Detection from image</h1>
+      <div class="upload-container">
+        <form
+          id="upload-form"
+          method="POST"
+          action="/predict_image"
+          enctype="multipart/form-data"
+        >
+          <input type="file" name="image" required />
+          <input type="submit" value="Detect Pest" />
+        </form>
+      </div>
+
+      <div id="image-container" style="display: none">
+        <h3>Uploaded Image:</h3>
+        <img
+          id="uploaded-image"
+          src=""
+          alt="Uploaded Image"
+          class="uploaded-image"
+        />
+      </div>
+
+      <div id="prediction-result" style="display: none">
+        <h2>Prediction Result</h2>
+        <p><strong>Pest Detected:</strong> <span id="pest-name"></span></p>
+        <p><strong>Confidence:</strong> <span id="confidence-score"></span></p>
+        <p><strong>Status:</strong> <span id="pest-status"></span></p>
+        <div id="pest-details" style="display: none">
+          <h3>Pest Details</h3>
+          <p>
+            <strong>Description:</strong> <span id="pest-description"></span>
+          </p>
+          <p>
+            <strong>Management Strategies:</strong>
+            <span id="management-strategies"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("upload-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const formData = new FormData(this);
+
+          fetch("/predict_image", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              const predictionResultDiv =
+                document.getElementById("prediction-result");
+              const pestNameSpan = document.getElementById("pest-name");
+              const confidenceScoreSpan =
+                document.getElementById("confidence-score");
+              const pestStatusSpan = document.getElementById("pest-status");
+              const imageContainer = document.getElementById("image-container");
+              const uploadedImage = document.getElementById("uploaded-image");
+              const pestDescriptionSpan =
+                document.getElementById("pest-description");
+              const managementStrategiesSpan = document.getElementById(
+                "management-strategies"
+              );
+              const pestDetailsDiv = document.getElementById("pest-details");
+
+              if (data.error) {
+                pestNameSpan.textContent = "Error";
+                confidenceScoreSpan.textContent = data.error;
+                pestStatusSpan.textContent = "";
+                predictionResultDiv.style.display = "block";
+                imageContainer.style.display = "none";
+                pestDetailsDiv.style.display = "none";
+              } else {
+                if (data.uploaded_image_url) {
+                  uploadedImage.src = data.uploaded_image_url;
+                  imageContainer.style.display = "block";
+                } else {
+                  imageContainer.style.display = "none";
+                }
+
+                pestNameSpan.textContent = data.pest_detected;
+                confidenceScoreSpan.textContent = `${parseFloat(
+                  data.confidence
+                ).toFixed(2)}%`;
+                if (data.is_harmful) {
+                  pestStatusSpan.textContent = "Harmful Pest!";
+                  pestStatusSpan.className = "harmful";
+                } else {
+                  pestStatusSpan.textContent = "Not Harmful.";
+                  pestStatusSpan.className = "not-harmful";
+                }
+                predictionResultDiv.style.display = "block";
+
+                if (data.description && data.management) {
+                  pestDescriptionSpan.textContent = data.description;
+                  managementStrategiesSpan.textContent = data.management;
+                  pestDetailsDiv.style.display = "block";
+                } else {
+                  pestDescriptionSpan.textContent = "No details found.";
+                  managementStrategiesSpan.textContent = "No details found.";
+                  pestDetailsDiv.style.display = "block";
+                }
+              }
+            })
+            .catch((error) => {
+              const predictionResultDiv =
+                document.getElementById("prediction-result");
+              const pestNameSpan = document.getElementById("pest-name");
+              const imageContainer = document.getElementById("image-container");
+              const pestDetailsDiv = document.getElementById("pest-details");
+              confidenceScoreSpan.textContent =
+                "Error communicating with the server.";
+              pestNameSpan.textContent = "Error";
+              pestStatusSpan.textContent = "";
+              predictionResultDiv.style.display = "block";
+              imageContainer.style.display = "none";
+              pestDetailsDiv.style.display = "none";
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>

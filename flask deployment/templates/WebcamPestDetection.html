@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pest Detection</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        #webcam-stream-container {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden; /* To contain the rounded corners */
+            max-width: 100%;
+        }
+
+        #webcam-stream {
+            display: none; /* Initially hidden */
+            width: 100%;
+            height: auto;
+            display: block; /* Make it block when active */
+        }
+
+        .button-container {
+            margin-bottom: 20px;
+        }
+
+        .webcam-button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .webcam-button:hover {
+            background-color: #5cb85c;
+        }
+
+        #prediction-result {
+            margin-top: 20px;
+            text-align: left;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            display: none; /* Initially hidden */
+        }
+
+        #prediction-result h2 {
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        #pest-details {
+            margin-top: 10px;
+            padding-left: 15px;
+            border-left: 3px solid #bbb;
+        }
+
+        #pest-details h3 {
+            color: #555;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        #pest-details p {
+            margin-bottom: 5px;
+        }
+
+        .harmful {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .not-harmful {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <div class="container">
+        <h1>Pest Detection from Camera</h1>
+
+        <div id="webcam-stream-container">
+            <h3>Webcam Feed:</h3>
+            <img id="webcam-stream" src="{{ url_for('webcam_feed') }}" alt="Webcam Feed">
+        </div>
+
+        <div class="button-container">
+            <button id="start-webcam" class="webcam-button">Start Webcam</button>
+            <button id="stop-webcam" class="webcam-button" disabled>Stop</button>
+        </div>
+
+        <div id="prediction-result" style="display: none;">
+            <h2>Prediction Result</h2>
+            <p><strong>Pest Detected:</strong> <span id="pest-name"></span></p>
+            <p><strong>Confidence:</strong> <span id="confidence-score"></span></p>
+            <p><strong>Status:</strong> <span id="pest-status"></span></p>
+            <div id="pest-details" style="display: none;">
+                <h3>Pest Details</h3>
+                <p><strong>Description:</strong> <span id="pest-description"></span></p>
+                <p><strong>Management Strategies:</strong> <span id="management-strategies"></span></p>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const webcamStreamContainer = document.getElementById('webcam-stream-container');
+    const webcamStream = document.getElementById('webcam-stream');
+    const startWebcamButton = document.getElementById('start-webcam');
+    const stopWebcamButton = document.getElementById('stop-webcam');
+    let webcamActive = false;
+
+    startWebcamButton.addEventListener('click', () => {
+        fetch('/start_webcam')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'webcam started') {
+                webcamStream.style.display = 'block';
+                webcamStreamContainer.style.display = 'block';
+                startWebcamButton.disabled = true;
+                stopWebcamButton.disabled = false;
+                webcamActive = true;
+                // Optionally hide any result display elements here if they were visible
+                const predictionHistoryTable = document.getElementById('prediction-history-table');
+                if (predictionHistoryTable) {
+                    predictionHistoryTable.style.display = 'none';
+                }
+                const predictionResultDiv = document.getElementById('prediction-result');
+                if (predictionResultDiv) {
+                    predictionResultDiv.style.display = 'none';
+                }
+            }
+        })
+        .catch(error => console.error('Error starting webcam:', error));
+    });
+
+    stopWebcamButton.addEventListener('click', () => {
+        fetch('/stop_webcam')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'webcam stopped') {
+                webcamStream.style.display = 'none';
+                webcamStreamContainer.style.display = 'none';
+                startWebcamButton.disabled = false;
+                stopWebcamButton.disabled = true;
+                webcamActive = false;
+                // We no longer fetch or display any results here
+            }
+        })
+        .catch(error => console.error('Error stopping webcam:', error));
+    });
+</script>
+</body>
+</html>

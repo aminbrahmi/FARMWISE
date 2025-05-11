@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fertilizer Recommendation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .form-container {
+        background-color: #e8f1e8; /* Light background */
+      }
+      .form-heading {
+        color: #1e293b; /* Dark text for heading */
+      }
+      .form-label {
+        color: #4b5563; /* Medium gray for labels */
+      }
+      .form-input {
+        border-color: #d1d5db; /* Light border */
+      }
+      .form-button {
+        background-color: #10b981; /* Green button */
+        color: white;
+        transition: background-color 0.3s ease; /* Smooth transition */
+      }
+      .form-button:hover {
+        background-color: #059669; /* Darker green on hover */
+      }
+      .error-message {
+        color: #dc2626; /* Red for error messages */
+      }
+    </style>
+  </head>
+  <body >
+    {% include 'sidebar.html' %}
+    <div class="container max-w-2xl mx-auto form-container rounded-lg shadow-md p-8 mt-10">
+      <h2 class="form-heading text-2xl font-semibold mb-6 text-center">
+        Fertilizer Recommendation
+      </h2>
+      <form method="post" class="space-y-4">
+        <div>
+          <label for="nitrogen" class="form-label block text-sm font-medium"
+            >Nitrogen (N):</label
+          >
+          <input
+            type="number"
+            id="nitrogen"
+            name="nitrogen"
+            required
+            class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none sm:text-sm"
+          />
+          <p id="nitrogen-help" class="mt-1 text-xs text-gray-500">
+            Enter nitrogen content (e.g., 10).
+          </p>
+        </div>
+        <div>
+          <label for="phosphorus" class="form-label block text-sm font-medium"
+            >Phosphorus (P):</label
+          >
+          <input
+            type="number"
+            id="phosphorus"
+            name="phosphorus"
+            required
+            class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none sm:text-sm"
+          />
+          <p id="phosphorus-help" class="mt-1 text-xs text-gray-500">
+            Enter phosphorus content (e.g., 20).
+          </p>
+        </div>
+        <div>
+          <label for="potassium" class="form-label block text-sm font-medium"
+            >Potassium (K):</label
+          >
+          <input
+            type="number"
+            id="potassium"
+            name="potassium"
+            required
+            class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none sm:text-sm"
+          />
+          <p id="potassium-help" class="mt-1 text-xs text-gray-500">
+            Enter potassium content (e.g., 15).
+          </p>
+        </div>
+        <div>
+          <label for="temperature" class="form-label block text-sm font-medium"
+            >Temperature:</label
+          >
+          <input
+            type="number"
+            id="temperature"
+            name="temperature"
+            required
+            class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none sm:text-sm"
+          />
+          <p id="temperature-help" class="mt-1 text-xs text-gray-500">
+            Enter temperature in Celsius (e.g., 25).
+          </p>
+        </div>
+        <div>
+          <label for="humidity" class="form-label block text-sm font-medium"
+            >Humidity:</label
+          >
+          <input
+            type="number"
+            id="humidity"
+            name="humidity"
+            required
+            class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none sm:text-sm"
+          />
+          <p id="humidity-help" class="mt-1 text-xs text-gray-500">
+            Enter humidity percentage (e.g., 60).
+          </p>
+        </div>
+        <div>
+          <label
+            for="soil_moisture"
+            class="form-label block text-sm font-medium"
+            >Soil Moisture:</label
+          >
+          <input
+            type="number"
+            id="soil_moisture"
+            name="soil_moisture"
+            required
+            class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none sm:text-sm"
+          />
+          <p id="soil-moisture-help" class="mt-1 text-xs text-gray-500">
+            Enter soil moisture level (e.g., 70).
+          </p>
+        </div>
+        <div>
+          <label for="crop_type" class="form-label block text-sm font-medium"
+            >Crop Type:</label
+          >
+          <select
+            id="crop_type"
+            name="crop_type"
+            required
+            class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none sm:text-sm"
+          >
+            <option value="0">Paddy</option>
+            <option value="1">Sugarcane</option>
+            <option value="2">Cotton</option>
+            <option value="3">Groundnut</option>
+            <option value="4">Wheat</option>
+            <option value="5">Millets</option>
+            <option value="6">Oil seeds</option>
+          </select>
+          <p id="crop_type-help" class="mt-1 text-xs text-gray-500">
+            Select crop type.
+          </p>
+        </div>
+        <div>
+          <label for="soil_type" class="form-label block text-sm font-medium"
+            >Soil Type:</label
+          >
+          <select
+            id="soil_type"
+            name="soil_type"
+            required
+            class="form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm py-2 px-3 focus:outline-none sm:text-sm"
+          >
+            <option value="0">Laterite</option>
+            <option value="1">Black</option>
+            <option value="2">Clay</option>
+            <option value="3">Red</option>
+          </select>
+          <p id="soil_type-help" class="mt-1 text-xs text-gray-500">
+            Select soil type.
+          </p>
+        </div>
+        <button
+          type="submit"
+          class="form-button rounded-md py-2 px-4 font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-sm"
+        >
+          Get Recommendation
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

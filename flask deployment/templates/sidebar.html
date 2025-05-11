@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmewise Dashboard</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding-left: 240px; /* Adjust based on initial sidebar width */
+            transition: padding-left 0.3s ease;
+        }
+
+        body.sidebar-collapsed {
+            padding-left: 60px; /* Adjust based on collapsed sidebar width */
+        }
+
+        .sidebar {
+            background-color: #1d623a;
+            color: white;
+            width: 240px;
+            padding: 20px;
+            border-radius: 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100vh; /* Make it full height */
+            display: flex;
+            flex-direction: column;
+            transition: width 0.3s ease;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-x: hidden;
+            z-index: 100;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar h1 {
+            color: #fff;
+            margin-bottom: 20px;
+            text-align: left;
+            font-size: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: opacity 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .sidebar.collapsed h1 {
+            opacity: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar li {
+            margin-bottom: 10px; /* Reduced margin for better spacing */
+        }
+
+        .sidebar > ul > li > a { /* Style for top-level links */
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px 16px; /* Reduced padding */
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            font-weight: 500;
+        }
+
+        .sidebar > ul > li > a:hover {
+            background-color: #183524;
+            transform: translateX(2px); /* Reduced transform */
+        }
+
+        .sidebar > ul > li > a i {
+            margin-right: 10px; /* Reduced margin */
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            color: #2ecc71;
+        }
+
+        .sidebar > ul > li > a span {
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed > ul > li > a span {
+            opacity: 0;
+        }
+
+        .sidebar .dropdown-menu {
+            display: none; /* Initially hide the dropdown */
+            list-style: none;
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .sidebar .dropdown-menu li a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px; /* Reduced padding */
+            border-radius: 6px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: 400;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar .dropdown-menu li a:hover {
+            background-color: #183524;
+            transform: translateX(2px); /* Reduced transform */
+        }
+
+        .sidebar.collapsed .dropdown-menu {
+            display: none !important; /* Ensure it stays hidden when collapsed */
+        }
+
+        .sidebar .bottom-section {
+            padding-top: 15px;
+            border-top: 1px solid #498964;
+            text-align: left;
+            margin-top: auto;
+            padding-bottom: 40px;
+        }
+
+        .sidebar .bottom-section a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px 16px; /* Reduced padding */
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            font-weight: 500;
+        }
+
+        .sidebar .bottom-section a i {
+            margin-right: 10px; /* Reduced margin */
+            font-size: 20px;
+            width: 24px;
+            text-align: center;
+            color: #2ecc71;
+        }
+
+        .sidebar .bottom-section a span {
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar.collapsed .bottom-section a span {
+            opacity: 0;
+        }
+
+        .sidebar .bottom-section a:hover {
+            background-color: #96ecba;
+            color: #1d623a; /* Darker text on hover for contrast */
+            transform: translateX(2px); /* Reduced transform */
+        }
+
+        .sidebar .bottom-section a#collapse-toggle {
+            background-color: #26b461;
+            color: white;
+        }
+
+        .sidebar .bottom-section a#collapse-toggle:hover {
+            background-color: #148b46;
+        }
+
+        .main-content {
+            padding: 20px;
+            transition: padding-left 0.3s ease;
+        }
+
+        .main-content.sidebar-collapsed {
+            padding-left: 80px; /* Adjust based on collapsed sidebar width + some extra */
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar">
+    <h1>FarmeWise</h1>
+    <ul>
+        <li><a href="/"><i class="material-icons">home</i> <span>Home</span></a></li>
+        <li class="dropdown-parent">
+            <a href="#"><i class="material-icons">camera_enhance</i> <span>Pest Detection</span></a>
+            <ul class="dropdown-menu">
+                <li><a href="/video_detection"><i class="material-icons">videocam</i> <span>Video Detection</span></a></li>
+                <li><a href="/image_detection"><i class="material-icons">image</i> <span>Image Detection</span></a></li>
+                <li><a href="/webcam_detection"><i class="material-icons">camera</i> <span>Camera Detection</span></a></li>
+            </ul>
+        </li>
+        <li><a href="/fertilizer_recommendation"><i class="material-icons">spa</i> <span>Fertilizer predection </span></a></li>
+        <li><a href="#"><i class="material-icons">settings</i> <span>Settings</span></a></li>
+    </ul>
+    <div class="bottom-section">
+        <a href="#" id="collapse-toggle"><i class="material-icons">menu</i> <span>Collapse</span></a>
+    </div>
+</div>
+
+
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const body = document.body;
+    const collapseToggle = document.getElementById('collapse-toggle');
+    const dropdownParent = document.querySelector('.dropdown-parent');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+    const dropdownLinks = dropdownMenu.querySelectorAll('li a'); // Select all links within the dropdown
+
+    collapseToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        body.classList.toggle('sidebar-collapsed');
+        if (sidebar.classList.contains('collapsed')) {
+            dropdownMenu.style.display = 'none';
+            collapseToggle.querySelector('span').textContent = 'Expand';
+            collapseToggle.querySelector('i').textContent = 'menu_open';
+        } else {
+            collapseToggle.querySelector('span').textContent = 'Collapse';
+            collapseToggle.querySelector('i').textContent = 'menu';
+        }
+    });
+
+    dropdownParent.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent navigation of the parent link
+        if (!sidebar.classList.contains('collapsed')) {
+            dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+        }
+    });
+
+    // Prevent event bubbling for the dropdown links
+    dropdownLinks.forEach(link => {
+        link.addEventListener('click', (event) => {
+            // We don't want to prevent the default action (navigation)
+            // We ONLY want to stop the click from propagating up to the dropdownParent
+            event.stopPropagation();
+            // Optionally, you might want to close the dropdown here after a link is clicked:
+            dropdownMenu.style.display = 'none';
+        });
+    });
+
+    // Initially hide the dropdown
+    dropdownMenu.style.display = 'none';
+</script>
+
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pest Detection - Video Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+        }
+
+        .result-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            width: 90%;
+            max-width: 600px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+            animation: slideDown 0.6s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .video-output-container {
+            margin-bottom: 30px;
+            animation: fadeInUp 0.6s ease-out 0.4s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        video {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .predictions-container {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background-color: #f9f9f9;
+            text-align: left;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            animation: slideInLeft 0.6s ease-out 0.8s backwards;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+
+        .predictions-container h2 {
+            color: #34495e;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 12px;
+        }
+
+        .prediction-item {
+            margin-bottom: 12px;
+            padding: 10px;
+            border-left: 3px solid #5cb85c;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+
+        .prediction-item strong {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .alert-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ffebee;
+            border: 1px solid #ef9a9a;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .alert-container h2 {
+            color: #d32f2f;
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #ef9a9a;
+            padding-bottom: 10px;
+        }
+
+        .harmful-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-left: 3px solid #d32f2f;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+
+        .harmful-item strong {
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .back-button {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 30px;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #545b62;
+        }
+
+        .pest-details {
+            margin-top: 25px;
+            padding-top: 18px;
+            border-top: 1px solid #eee;
+            text-align: left;
+            }
+
+        .pest-details h3 {
+            color: #2c3e50;
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .pest-details p{
+             line-height: 1.7;
+             color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <div class="result-container">
+        <h1>Processed Video with Pest Detections</h1>
+        
+
+        <div class="predictions-container">
+            <h2>Detected Pest</h2>
+            {% if predictions and predictions|length > 0 %}
+                <div class="prediction-item">
+                    <strong>Pest:</strong> <span id="pest-name">{{ predictions[-1].pest }}</span>,
+                    <strong>Confidence:</strong> <span id="confidence-score">{{ '%.2f' % (predictions[-1].confidence * 100) }}%</span>
+                </div>
+            {% else %}
+                <p>No pests detected in the processed frames.</p>
+            {% endif %}
+        </div>
+
+
+        <a href="/video_detection" class="back-button">Upload Another Video</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fertilizer Recommendation Result</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .result-container {
+            background-color: #e9f5e9; /* Light background */
+        }
+        .result-heading {
+            color: #3c603c; /* Dark text for heading */
+        }
+        .recommendation-text {
+            color: #15803d; /* Strong green for recommendation */
+        }
+        .description-heading {
+            color: #4b5563; /* Medium gray for description heading */
+        }
+        .description-text {
+            color: #6b7280;
+        }
+        .best-used-for-heading {
+            color: #4b5563;
+        }
+         .best-used-for-text {
+            color: #6b7280;
+        }
+        .application-heading {
+            color: #4b5563;
+        }
+        .application-text {
+            color: #6b7280;
+        }
+
+        .error-message {
+            color: #dc2626; /* Red for error messages */
+        }
+        .try-again-button {
+            background-color: #5cb85c; /* Blue button */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        .try-again-button:hover {
+            background-color: #568b56; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body >
+    {% include 'sidebar.html' %}
+    <div class="container max-w-2xl mx-auto result-container rounded-lg shadow-md p-8 mt-10">
+        <h2 class="result-heading text-2xl font-semibold mb-6 text-center">Fertilizer Recommendation Result</h2>
+        {% if error_message %}
+            <p class="error-message text-red-600 text-center font-semibold">{{ error_message }}</p>
+            <div class="mt-4 text-center">
+                <a href="{{ url_for('fertilizer_recommendation') }}" class="try-again-button rounded-md py-2 px-4 font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+                    Try Again
+                </a>
+            </div>
+        {% else %}
+            <p class="recommendation-text text-xl font-semibold text-green-600 text-center mb-4">Recommended Fertilizer: {{ predicted_fertilizer }}</p>
+            <h3 class="description-heading text-lg font-semibold mt-6 mb-2">Description:</h3>
+            <p class="description-text text-gray-700 leading-relaxed">{{ description }}</p>
+            <h3 class="best-used-for-heading text-lg font-semibold mt-4 mb-2">Best Used For:</h3>
+            <p class="best-used-for-text text-gray-700 leading-relaxed">{{ best_used_for }}</p>
+            <h3 class="application-heading text-lg font-semibold mt-4 mb-2">Application:</h3>
+            <p class="application-text text-gray-700 leading-relaxed">{{ application }}</p>
+            <div class="mt-6 text-center">
+                <a href="{{ url_for('fertilizer_recommendation') }}" class="try-again-button rounded-md py-2 px-4 font-semibold hover:#568b56 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+                    Get Another Recommendation
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
