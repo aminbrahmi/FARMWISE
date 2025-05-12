@@ -80,7 +80,12 @@ def process_video(video_path, output_path):
                     confidence = pred.data[class_index].item()
                     class_name = results[0].names[class_index]
 
-                    predictions.append({'frame': i, 'pest': class_name, 'confidence': float(confidence)})
+                    pest_details = PEST_DATA_VIDEO.get(class_name)
+                    is_harmful = class_name in harmful_pests
+                    prediction_data = {'frame': i, 'pest': class_name, 'confidence': float(confidence), 'is_harmful': is_harmful}
+                    if pest_details:
+                        prediction_data.update(pest_details)
+                    predictions.append(prediction_data)
 
         cap.release()
         out.release()
@@ -88,5 +93,3 @@ def process_video(video_path, output_path):
 
     except Exception as e:
         return {'error': f'Error processing video: {e}', 'predictions': []}
-
-import numpy as np
