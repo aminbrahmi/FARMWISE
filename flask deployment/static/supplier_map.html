@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_4a9f7e51530c9ab1fdf93240edf0baff {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_4a9f7e51530c9ab1fdf93240edf0baff" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_4a9f7e51530c9ab1fdf93240edf0baff = L.map(
+                "map_4a9f7e51530c9ab1fdf93240edf0baff",
+                {
+                    center: [36.813, 10.179],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 10,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_05c7c1c9130ad5bd1ae257a172d0a335 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_05c7c1c9130ad5bd1ae257a172d0a335.addTo(map_4a9f7e51530c9ab1fdf93240edf0baff);
+        
+    
+            var marker_6f6e6f6052d0cf6898292e5441034717 = L.marker(
+                [36.813, 10.179],
+                {
+}
+            ).addTo(map_4a9f7e51530c9ab1fdf93240edf0baff);
+        
+    
+            var icon_e524572f3f88de49ba9f85e2951db011 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "user",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fd10c5f8ec2f029f08cf2425879c5ba8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_76a7143b649873e8cdb5585e919c7973 = $(`<div id="html_76a7143b649873e8cdb5585e919c7973" style="width: 100.0%; height: 100.0%;">Your Location</div>`)[0];
+                popup_fd10c5f8ec2f029f08cf2425879c5ba8.setContent(html_76a7143b649873e8cdb5585e919c7973);
+            
+        
+
+        marker_6f6e6f6052d0cf6898292e5441034717.bindPopup(popup_fd10c5f8ec2f029f08cf2425879c5ba8)
+        ;
+
+        
+    
+    
+                marker_6f6e6f6052d0cf6898292e5441034717.setIcon(icon_e524572f3f88de49ba9f85e2951db011);
+            
+    
+            var marker_cluster_4b5dcf28382d9ca27c96c55de20d0341 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_4535ec0efc6060c0f8707f517965c79f = L.marker(
+                [36.81897, 10.16579],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_6d045172152bcebc1ae95d454d6e84d8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_930def9890bacd80575e94756cadfeb6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d1b1523ca60146aaac1c692bb1290af1 = $(`<div id="html_d1b1523ca60146aaac1c692bb1290af1" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>ociété Saidi de Collecte des  Céréales (SSCC) </b><br>                 <i>Immeuble Golden Towers Bur. 3-5; 3ème étage - Centre Urbain Nord 1082 Tunis, Tunisia</i><br><br>                 <b>Distance:</b> 1.4 km<br>                 <b>Main Type:</b> Other<br>                 <b>Products:</b><br>                 • FARINA<br>• DI<br>• BASALTO             </div>             </div>`)[0];
+                popup_930def9890bacd80575e94756cadfeb6.setContent(html_d1b1523ca60146aaac1c692bb1290af1);
+            
+        
+
+        marker_4535ec0efc6060c0f8707f517965c79f.bindPopup(popup_930def9890bacd80575e94756cadfeb6)
+        ;
+
+        
+    
+    
+                marker_4535ec0efc6060c0f8707f517965c79f.setIcon(icon_6d045172152bcebc1ae95d454d6e84d8);
+            
+    
+            var marker_cf1a271b260efda62bc1c1911c8af960 = L.marker(
+                [36.7936007, 10.1824896],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_d51d8bee2b4d04fd08b1570db13c2718 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a4210fe82030ad827261e0f914f229f6 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_eee4fc7af8b9e0933047e006fd1bda5a = $(`<div id="html_eee4fc7af8b9e0933047e006fd1bda5a" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>EVEREST AGRI</b><br>                 <i>62, Avenue de Carthage -1000 Tunis, Tunisia</i><br><br>                 <b>Distance:</b> 2.2 km<br>                 <b>Main Type:</b> Biostimulants<br>                 <b>Products:</b><br>                 • BESTCURE<br>• BIORADICANTE<br>• BOTAMISOL<br>• PRO<br>• 80<br>• ...             </div>             </div>`)[0];
+                popup_a4210fe82030ad827261e0f914f229f6.setContent(html_eee4fc7af8b9e0933047e006fd1bda5a);
+            
+        
+
+        marker_cf1a271b260efda62bc1c1911c8af960.bindPopup(popup_a4210fe82030ad827261e0f914f229f6)
+        ;
+
+        
+    
+    
+                marker_cf1a271b260efda62bc1c1911c8af960.setIcon(icon_d51d8bee2b4d04fd08b1570db13c2718);
+            
+    
+            var marker_b295baa7a3078bfb981ef00c2994828f = L.marker(
+                [36.837293, 10.1687885],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_7990887bad209f6e5132ae8d6a491559 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e0dd0a5ef70293f31ad0bd1d9f0d4847 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_562c6289da6914a36190d8c16750cf70 = $(`<div id="html_562c6289da6914a36190d8c16750cf70" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Nutriplant </b><br>                 <i>9, Rue Fatma El Fehria, Mutuelleville 1082 Tunis, Tunisia</i><br><br>                 <b>Distance:</b> 2.8 km<br>                 <b>Main Type:</b> Biostimulants<br>                 <b>Products:</b><br>                 • VENI<br>• BIOSULFUR<br>• GREEN<br>• FORGE<br>• HOLD<br>• ...             </div>             </div>`)[0];
+                popup_e0dd0a5ef70293f31ad0bd1d9f0d4847.setContent(html_562c6289da6914a36190d8c16750cf70);
+            
+        
+
+        marker_b295baa7a3078bfb981ef00c2994828f.bindPopup(popup_e0dd0a5ef70293f31ad0bd1d9f0d4847)
+        ;
+
+        
+    
+    
+                marker_b295baa7a3078bfb981ef00c2994828f.setIcon(icon_7990887bad209f6e5132ae8d6a491559);
+            
+    
+            var marker_36df46cec2ccadd0d6bd8338c087f5cb = L.marker(
+                [36.7796674, 10.1966209],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_56fbd0701ebc64b47e10e5a2fbd6afc8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_625491c32d4889715212a14fccc7083c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_7392341e685ee9ed96f8d69adba84847 = $(`<div id="html_7392341e685ee9ed96f8d69adba84847" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Société Tunisienne des Engrais  Chimiques (STEC)</b><br>                 <i>El Afrane - 1009 El Ouardia, Tunis, Tunisia</i><br><br>                 <b>Distance:</b> 4.0 km<br>                 <b>Main Type:</b> Microbial<br>                 <b>Products:</b><br>                 • ORGAFLOW<br>• BIOCAL             </div>             </div>`)[0];
+                popup_625491c32d4889715212a14fccc7083c.setContent(html_7392341e685ee9ed96f8d69adba84847);
+            
+        
+
+        marker_36df46cec2ccadd0d6bd8338c087f5cb.bindPopup(popup_625491c32d4889715212a14fccc7083c)
+        ;
+
+        
+    
+    
+                marker_36df46cec2ccadd0d6bd8338c087f5cb.setIcon(icon_56fbd0701ebc64b47e10e5a2fbd6afc8);
+            
+    
+            var marker_c2105738f228c23dcb6c281f7e1e7b03 = L.marker(
+                [36.86012, 10.19337],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_523f5fbaa9f988018c7f302040c87850 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ce5584ef16c06f750e4b5fcaec0730c8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_419357d8260d743117d165eec14adb28 = $(`<div id="html_419357d8260d743117d165eec14adb28" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>FERTISTAR</b><br>                 <i>B.P. 42, CitéChaker, BorjTouil, Ariana, Tunisia</i><br><br>                 <b>Distance:</b> 5.4 km<br>                 <b>Main Type:</b> Biostimulants<br>                 <b>Products:</b><br>                 • ACM<br>• AMINO<br>• 12<br>• VEGETAL<br>• ACM<br>• ...             </div>             </div>`)[0];
+                popup_ce5584ef16c06f750e4b5fcaec0730c8.setContent(html_419357d8260d743117d165eec14adb28);
+            
+        
+
+        marker_c2105738f228c23dcb6c281f7e1e7b03.bindPopup(popup_ce5584ef16c06f750e4b5fcaec0730c8)
+        ;
+
+        
+    
+    
+                marker_c2105738f228c23dcb6c281f7e1e7b03.setIcon(icon_523f5fbaa9f988018c7f302040c87850);
+            
+    
+            var marker_c1613543051897781aeb739a83aafce4 = L.marker(
+                [36.76917, 10.23639],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_860fc3bcc3fbad2e02fa1f6d20ce789c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d56bc82da6428c9344d786e9bff84553 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_2b44efcab8d5691a365fb3afe104cc52 = $(`<div id="html_2b44efcab8d5691a365fb3afe104cc52" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Société d’Engrais et de Produits  Chimiques de Mégrine (SEPCM)</b><br>                 <i>20, Avenue Taieb M’hiri, 2014 Megrine, Tunisia</i><br><br>                 <b>Distance:</b> 7.1 km<br>                 <b>Main Type:</b> Microbial<br>                 <b>Products:</b><br>                 • AGRI-OSMOZ             </div>             </div>`)[0];
+                popup_d56bc82da6428c9344d786e9bff84553.setContent(html_2b44efcab8d5691a365fb3afe104cc52);
+            
+        
+
+        marker_c1613543051897781aeb739a83aafce4.bindPopup(popup_d56bc82da6428c9344d786e9bff84553)
+        ;
+
+        
+    
+    
+                marker_c1613543051897781aeb739a83aafce4.setIcon(icon_860fc3bcc3fbad2e02fa1f6d20ce789c);
+            
+    
+            var marker_497d42e53a3573938bf452f455877393 = L.marker(
+                [36.76917, 10.23639],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_e7aa3f8d32be168dc5b10734767a59f0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "beige",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3ffbc38f260e31d727e18c8c058a8dfc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_26cb551539fc58d4b5f2f921e140726c = $(`<div id="html_26cb551539fc58d4b5f2f921e140726c" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>COTUGRAIN</b><br>                 <i>Z.I. Saint-Gobain, 2014 Megrine, Tunisia</i><br><br>                 <b>Distance:</b> 7.1 km<br>                 <b>Main Type:</b> General_Agriculture<br>                 <b>Products:</b><br>                 • POWHUMUS<br>• WSG<br>• 85             </div>             </div>`)[0];
+                popup_3ffbc38f260e31d727e18c8c058a8dfc.setContent(html_26cb551539fc58d4b5f2f921e140726c);
+            
+        
+
+        marker_497d42e53a3573938bf452f455877393.bindPopup(popup_3ffbc38f260e31d727e18c8c058a8dfc)
+        ;
+
+        
+    
+    
+                marker_497d42e53a3573938bf452f455877393.setIcon(icon_e7aa3f8d32be168dc5b10734767a59f0);
+            
+    
+            var marker_2bf39c12631d27fbf7889e8dc092eed3 = L.marker(
+                [36.75306, 10.21889],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_c6e8dc479dd6fd6bdc5b0334cb3797db = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "beige",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6c2752f017237d773fd955cc6cbc2043 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a15e09009311a1b6250eeede8562b7ce = $(`<div id="html_a15e09009311a1b6250eeede8562b7ce" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>BS Agro</b><br>                 <i>2 Rue camomille Fouchana 2082 Ben Arous Tunisie, Tunisia</i><br><br>                 <b>Distance:</b> 7.5 km<br>                 <b>Main Type:</b> General_Agriculture<br>                 <b>Products:</b><br>                 • ICC<br>• ICI             </div>             </div>`)[0];
+                popup_6c2752f017237d773fd955cc6cbc2043.setContent(html_a15e09009311a1b6250eeede8562b7ce);
+            
+        
+
+        marker_2bf39c12631d27fbf7889e8dc092eed3.bindPopup(popup_6c2752f017237d773fd955cc6cbc2043)
+        ;
+
+        
+    
+    
+                marker_2bf39c12631d27fbf7889e8dc092eed3.setIcon(icon_c6e8dc479dd6fd6bdc5b0334cb3797db);
+            
+    
+            var marker_f055ed94dd4488de23f071d096ed93d1 = L.marker(
+                [36.75306, 10.21889],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_b73274b1acbe5d8d1c65c94a86756056 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "beige",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_aed58b39264a541314fd330c674e74f8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_c8a9325f480a3319ed82d44a64121e99 = $(`<div id="html_c8a9325f480a3319ed82d44a64121e99" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Agrimatco Tunisie</b><br>                 <i>Angle rue de l’électricité et rue d’Oran, Z.I. Ben Arous 2013, Tunisia</i><br><br>                 <b>Distance:</b> 7.5 km<br>                 <b>Main Type:</b> General_Agriculture<br>                 <b>Products:</b><br>                 • TURBO             </div>             </div>`)[0];
+                popup_aed58b39264a541314fd330c674e74f8.setContent(html_c8a9325f480a3319ed82d44a64121e99);
+            
+        
+
+        marker_f055ed94dd4488de23f071d096ed93d1.bindPopup(popup_aed58b39264a541314fd330c674e74f8)
+        ;
+
+        
+    
+    
+                marker_f055ed94dd4488de23f071d096ed93d1.setIcon(icon_b73274b1acbe5d8d1c65c94a86756056);
+            
+    
+            var marker_5eee8ae7b5f6546e41a6963dfbbef3bd = L.marker(
+                [36.8353484, 10.3098679],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_633a6f5701c064814b5acae10c47e3c1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b609e00007245c21e9a77ec128c12ad8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ffdc65f7139729f35345b85a556b94a9 = $(`<div id="html_ffdc65f7139729f35345b85a556b94a9" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Agrobest</b><br>                 <i>Korba, Tunisia, Tunisia</i><br><br>                 <b>Distance:</b> 11.9 km<br>                 <b>Main Type:</b> Pesticides<br>                 <b>Products:</b><br>                 • FERROACTIV<br>• H48<br>• FLOCROP<br>• B             </div>             </div>`)[0];
+                popup_b609e00007245c21e9a77ec128c12ad8.setContent(html_ffdc65f7139729f35345b85a556b94a9);
+            
+        
+
+        marker_5eee8ae7b5f6546e41a6963dfbbef3bd.bindPopup(popup_b609e00007245c21e9a77ec128c12ad8)
+        ;
+
+        
+    
+    
+                marker_5eee8ae7b5f6546e41a6963dfbbef3bd.setIcon(icon_633a6f5701c064814b5acae10c47e3c1);
+            
+    
+            var marker_41a194335f4b29f010e3d10bb90d0c63 = L.marker(
+                [36.70048, 10.1685],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_494e2599051fe1150d63db45d7dcb69c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b55f50c4ef85b86fec6dc9f5b214c247 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_43e1b8bcb62d1d663152f16ece08a995 = $(`<div id="html_43e1b8bcb62d1d663152f16ece08a995" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>AGRI EXPERT</b><br>                 <i>166 Avenue de Gabès - Z.I. Mghira III - 2082 Fouchana, Tunisia</i><br><br>                 <b>Distance:</b> 12.5 km<br>                 <b>Main Type:</b> Fertilizers<br>                 <b>Products:</b><br>                 • ALGA-PLEX<br>• FOLIASTIM<br>• B<br>• MO<br>• LIQUIDE<br>• ...             </div>             </div>`)[0];
+                popup_b55f50c4ef85b86fec6dc9f5b214c247.setContent(html_43e1b8bcb62d1d663152f16ece08a995);
+            
+        
+
+        marker_41a194335f4b29f010e3d10bb90d0c63.bindPopup(popup_b55f50c4ef85b86fec6dc9f5b214c247)
+        ;
+
+        
+    
+    
+                marker_41a194335f4b29f010e3d10bb90d0c63.setIcon(icon_494e2599051fe1150d63db45d7dcb69c);
+            
+    
+            var marker_051a7b5bcd5bd60f25cb930f06976bc9 = L.marker(
+                [36.879795, 10.3319648],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_9f0061469299a44ad9a995967dd2722d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "beige",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_44f87c68084c879ede329302114a80ba = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_91af294c01dd4bc9977dc5e24f2b28e0 = $(`<div id="html_91af294c01dd4bc9977dc5e24f2b28e0" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>BH FARMS SERVICE AGRICOLE </b><br>                 <i>56, Avenue de la Liberté, 1001 Bab El Bhar, Tunis, Tunisia</i><br><br>                 <b>Distance:</b> 15.5 km<br>                 <b>Main Type:</b> General_Agriculture<br>                 <b>Products:</b><br>                 • BLACKFORT<br>• SUPER<br>• FIFTY             </div>             </div>`)[0];
+                popup_44f87c68084c879ede329302114a80ba.setContent(html_91af294c01dd4bc9977dc5e24f2b28e0);
+            
+        
+
+        marker_051a7b5bcd5bd60f25cb930f06976bc9.bindPopup(popup_44f87c68084c879ede329302114a80ba)
+        ;
+
+        
+    
+    
+                marker_051a7b5bcd5bd60f25cb930f06976bc9.setIcon(icon_9f0061469299a44ad9a995967dd2722d);
+            
+    
+            var marker_20b3f8005c2a3667f8fed59e6a2c3cef = L.marker(
+                [36.5528673, 10.0452277],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_df733881996232e474e30ba16391d815 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_923ac512d0f27463d3ef90e435d73e4b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_61e83127b6b7b25ae64a8bce6274a4cd = $(`<div id="html_61e83127b6b7b25ae64a8bce6274a4cd" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Atlas Agricole S.A.</b><br>                 <i>Zone industrielle, Djebel El Oust, 1111 Zaghouan, Tunisia</i><br><br>                 <b>Distance:</b> 31.2 km<br>                 <b>Main Type:</b> Biostimulants<br>                 <b>Products:</b><br>                 • PHYLGREEN<br>• TRADEBOR<br>• TRADECORP<br>• AZ<br>• TRADECITRUS<br>• ...             </div>             </div>`)[0];
+                popup_923ac512d0f27463d3ef90e435d73e4b.setContent(html_61e83127b6b7b25ae64a8bce6274a4cd);
+            
+        
+
+        marker_20b3f8005c2a3667f8fed59e6a2c3cef.bindPopup(popup_923ac512d0f27463d3ef90e435d73e4b)
+        ;
+
+        
+    
+    
+                marker_20b3f8005c2a3667f8fed59e6a2c3cef.setIcon(icon_df733881996232e474e30ba16391d815);
+            
+    
+            var marker_da60b68d06988b53a35fbfb3507833a8 = L.marker(
+                [36.59894, 10.50032],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_f3354b10fd721aaa5635b33d5477c337 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "beige",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_29fd88c0d25de5d3584d65eb95cffa96 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_692a95bf07b7d45cafb52aa45c99c851 = $(`<div id="html_692a95bf07b7d45cafb52aa45c99c851" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>BIO FERTILIZER UNIT</b><br>                 <i>Km 4, Route Soliman, 8030 Grombalia, Tunisia</i><br><br>                 <b>Distance:</b> 37.3 km<br>                 <b>Main Type:</b> General_Agriculture<br>                 <b>Products:</b><br>                 • TERIOS<br>• LIQUIDO             </div>             </div>`)[0];
+                popup_29fd88c0d25de5d3584d65eb95cffa96.setContent(html_692a95bf07b7d45cafb52aa45c99c851);
+            
+        
+
+        marker_da60b68d06988b53a35fbfb3507833a8.bindPopup(popup_29fd88c0d25de5d3584d65eb95cffa96)
+        ;
+
+        
+    
+    
+                marker_da60b68d06988b53a35fbfb3507833a8.setIcon(icon_f3354b10fd721aaa5635b33d5477c337);
+            
+    
+            var marker_461a62d07ef345b2c22e09949e600ffa = L.marker(
+                [37.04045, 9.66557],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_8508933622ca7d070133b7d82ecd6629 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "beige",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_12861547eb3701db4c31036615294a55 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cef4ffa4ea0094658c0fd20fe065821e = $(`<div id="html_cef4ffa4ea0094658c0fd20fe065821e" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>SANABEL AGRO </b><br>                 <i>Z.I. Route Menzel Bourguiba,7030 Mateur, Tunisia</i><br><br>                 <b>Distance:</b> 52.2 km<br>                 <b>Main Type:</b> General_Agriculture<br>                 <b>Products:</b><br>                 • ECKLOMAR             </div>             </div>`)[0];
+                popup_12861547eb3701db4c31036615294a55.setContent(html_cef4ffa4ea0094658c0fd20fe065821e);
+            
+        
+
+        marker_461a62d07ef345b2c22e09949e600ffa.bindPopup(popup_12861547eb3701db4c31036615294a55)
+        ;
+
+        
+    
+    
+                marker_461a62d07ef345b2c22e09949e600ffa.setIcon(icon_8508933622ca7d070133b7d82ecd6629);
+            
+    
+            var marker_d64041a298570a71a01127dda668027e = L.marker(
+                [37.04045, 9.66557],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_167ee4b75998d4a639407d8491dc6343 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fcc1e41359f169b6d2d2312c2569ffb7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bba790b1da5d0ec938694f0bab2ee413 = $(`<div id="html_bba790b1da5d0ec938694f0bab2ee413" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>LIEN AGRICOLE</b><br>                 <i>Zone industrielle, 7030 Mateur, Tunisia</i><br><br>                 <b>Distance:</b> 52.2 km<br>                 <b>Main Type:</b> Microbial<br>                 <b>Products:</b><br>                 • FULLVIGOR<br>• BIFIDUS             </div>             </div>`)[0];
+                popup_fcc1e41359f169b6d2d2312c2569ffb7.setContent(html_bba790b1da5d0ec938694f0bab2ee413);
+            
+        
+
+        marker_d64041a298570a71a01127dda668027e.bindPopup(popup_fcc1e41359f169b6d2d2312c2569ffb7)
+        ;
+
+        
+    
+    
+                marker_d64041a298570a71a01127dda668027e.setIcon(icon_167ee4b75998d4a639407d8491dc6343);
+            
+    
+            var marker_83be03443e577e71665c06cc1cf9afef = L.marker(
+                [37.04045, 9.66557],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_aa50ea76e1643f99bfda1e3e18392ca6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8be0688f52652c0a5d2c49697664c812 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ab07c230cb0db7ffd7e0a339640391a8 = $(`<div id="html_ab07c230cb0db7ffd7e0a339640391a8" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>LIEN AGRICOLE</b><br>                 <i>Zone industrielle, 7030 Mateur, Tunisia</i><br><br>                 <b>Distance:</b> 52.2 km<br>                 <b>Main Type:</b> Microbial<br>                 <b>Products:</b><br>                 • FULLVIGOR<br>• BIFIDUS             </div>             </div>`)[0];
+                popup_8be0688f52652c0a5d2c49697664c812.setContent(html_ab07c230cb0db7ffd7e0a339640391a8);
+            
+        
+
+        marker_83be03443e577e71665c06cc1cf9afef.bindPopup(popup_8be0688f52652c0a5d2c49697664c812)
+        ;
+
+        
+    
+    
+                marker_83be03443e577e71665c06cc1cf9afef.setIcon(icon_aa50ea76e1643f99bfda1e3e18392ca6);
+            
+    
+            var marker_36cf7c638a3ac0f8b1b8a3fff7bc8978 = L.marker(
+                [36.64964, 9.61231],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_22769ed38c0df8c306bd6c5561f87386 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a685c1509af6b9dbc3c80a03caa40a13 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8d997ec2d164bade6dcc17d9c31ed22f = $(`<div id="html_8d997ec2d164bade6dcc17d9c31ed22f" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>PLANETE VERTE</b><br>                 <i>Route de Kef, 9070 Medjez El Bab, Tunisia</i><br><br>                 <b>Distance:</b> 53.8 km<br>                 <b>Main Type:</b> Microbial<br>                 <b>Products:</b><br>                 • ACA<br>• 27<br>• ORGANIC<br>• MIX<br>• DRIP<br>• ...             </div>             </div>`)[0];
+                popup_a685c1509af6b9dbc3c80a03caa40a13.setContent(html_8d997ec2d164bade6dcc17d9c31ed22f);
+            
+        
+
+        marker_36cf7c638a3ac0f8b1b8a3fff7bc8978.bindPopup(popup_a685c1509af6b9dbc3c80a03caa40a13)
+        ;
+
+        
+    
+    
+                marker_36cf7c638a3ac0f8b1b8a3fff7bc8978.setIcon(icon_22769ed38c0df8c306bd6c5561f87386);
+            
+    
+            var marker_697f7b981d92ebbd9c699a6b4ee0d18d = L.marker(
+                [36.45606, 10.73763],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_5ec5e7282f33fc2f74c18d1cd385a446 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fadbf5a9d0c140ffaaeb1ebad23d6bcc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_70b7b17c3de8560ac78ac3cbc757493a = $(`<div id="html_70b7b17c3de8560ac78ac3cbc757493a" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Société Tunisienne d’Engrais et  de Produits Agricoles  (STEPA) </b><br>                 <i>Rue MongiSlim, 8010 Menzel Bouzelfa, Nabeul, Tunisia</i><br><br>                 <b>Distance:</b> 63.8 km<br>                 <b>Main Type:</b> Fertilizers<br>                 <b>Products:</b><br>                 • BOMBARDIER<br>• BOMBARDIER<br>• SUGAR<br>• BORKO<br>• CAOS<br>• ...             </div>             </div>`)[0];
+                popup_fadbf5a9d0c140ffaaeb1ebad23d6bcc.setContent(html_70b7b17c3de8560ac78ac3cbc757493a);
+            
+        
+
+        marker_697f7b981d92ebbd9c699a6b4ee0d18d.bindPopup(popup_fadbf5a9d0c140ffaaeb1ebad23d6bcc)
+        ;
+
+        
+    
+    
+                marker_697f7b981d92ebbd9c699a6b4ee0d18d.setIcon(icon_5ec5e7282f33fc2f74c18d1cd385a446);
+            
+    
+            var marker_f458f1758918a942290f36fb5c7ae214 = L.marker(
+                [35.6781, 10.09633],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_28b704eee8cfc3d4e76f25543562cf4d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6432ff8dc369d482a5fcf9aa818bfa19 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_e872c3d23af78238cb5c95c2e965fdcb = $(`<div id="html_e872c3d23af78238cb5c95c2e965fdcb" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Sociéte NABHANA </b><br>                 <i>57 Rue HediChaker 3100 Kairouan Tunisie, Tunisia</i><br><br>                 <b>Distance:</b> 126.2 km<br>                 <b>Main Type:</b> Microbial<br>                 <b>Products:</b><br>                 • GLOPPDER<br>• ALGAPOWER<br>• LIGNOMIX<br>• CRIPTHUM             </div>             </div>`)[0];
+                popup_6432ff8dc369d482a5fcf9aa818bfa19.setContent(html_e872c3d23af78238cb5c95c2e965fdcb);
+            
+        
+
+        marker_f458f1758918a942290f36fb5c7ae214.bindPopup(popup_6432ff8dc369d482a5fcf9aa818bfa19)
+        ;
+
+        
+    
+    
+                marker_f458f1758918a942290f36fb5c7ae214.setIcon(icon_28b704eee8cfc3d4e76f25543562cf4d);
+            
+    
+            var marker_e3d5e4ae89d21b8a233a912f5f267272 = L.marker(
+                [35.77799, 10.82617],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_eb156944cb060d2171c482ddb23e4ca2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_66adfddd245f46276a36fb1d06c1c4ea = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8d3e19ebff8927e3953c1e664a521e72 = $(`<div id="html_8d3e19ebff8927e3953c1e664a521e72" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>El Khadra</b><br>                 <i>Avenue Taieb M’hiri, 5000 Monastir, Tunisia</i><br><br>                 <b>Distance:</b> 128.7 km<br>                 <b>Main Type:</b> Biostimulants<br>                 <b>Products:</b><br>                 • ALGADUL<br>• CUPRO<br>• ACTIV<br>• DCM<br>• VIVIKALI<br>• ...             </div>             </div>`)[0];
+                popup_66adfddd245f46276a36fb1d06c1c4ea.setContent(html_8d3e19ebff8927e3953c1e664a521e72);
+            
+        
+
+        marker_e3d5e4ae89d21b8a233a912f5f267272.bindPopup(popup_66adfddd245f46276a36fb1d06c1c4ea)
+        ;
+
+        
+    
+    
+                marker_e3d5e4ae89d21b8a233a912f5f267272.setIcon(icon_eb156944cb060d2171c482ddb23e4ca2);
+            
+    
+            var marker_3010c1e86c24ccede23100fa076c4104 = L.marker(
+                [34.0, 9.0],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_ca4f339d7e79d71bc8a4840e284d4093 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0cddd739061c3555dc958de4d335fab2 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_360a36ef8627e4adbf09c7834cd5d150 = $(`<div id="html_360a36ef8627e4adbf09c7834cd5d150" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>PROMOCHIMIE</b><br>                 <i>28, Rue 8601-B.P65-ZI Charguia 1 2035 Tunis Carthage.Tunisie, Tunisia</i><br><br>                 <b>Distance:</b> 330.0 km<br>                 <b>Main Type:</b> Pesticides<br>                 <b>Products:</b><br>                 • BLACKJAK<br>• PERFECTOSE<br>• STIMUL<br>• NOSSUM<br>• SP             </div>             </div>`)[0];
+                popup_0cddd739061c3555dc958de4d335fab2.setContent(html_360a36ef8627e4adbf09c7834cd5d150);
+            
+        
+
+        marker_3010c1e86c24ccede23100fa076c4104.bindPopup(popup_0cddd739061c3555dc958de4d335fab2)
+        ;
+
+        
+    
+    
+                marker_3010c1e86c24ccede23100fa076c4104.setIcon(icon_ca4f339d7e79d71bc8a4840e284d4093);
+            
+    
+            var marker_19f914a7ec7fee401985dc8ae58d444d = L.marker(
+                [34.0, 9.0],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_4d85a4ef03e122338935d4ef3e0055a3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_405569efb29d408002b5cee05be7f5bf = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_0da0d76a390dc9786452c6ee8ea8fe0a = $(`<div id="html_0da0d76a390dc9786452c6ee8ea8fe0a" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>FERTI AGRO</b><br>                 <i>Route de Tunis km 10, Sakiet Ezzit 2033 Megrine St Gobain, Tunisia</i><br><br>                 <b>Distance:</b> 330.0 km<br>                 <b>Main Type:</b> Fertilizers<br>                 <b>Products:</b><br>                 • FORCE<br>• CYT<br>• FORCE<br>• SIL<br>• FORCEX<br>• ...             </div>             </div>`)[0];
+                popup_405569efb29d408002b5cee05be7f5bf.setContent(html_0da0d76a390dc9786452c6ee8ea8fe0a);
+            
+        
+
+        marker_19f914a7ec7fee401985dc8ae58d444d.bindPopup(popup_405569efb29d408002b5cee05be7f5bf)
+        ;
+
+        
+    
+    
+                marker_19f914a7ec7fee401985dc8ae58d444d.setIcon(icon_4d85a4ef03e122338935d4ef3e0055a3);
+            
+    
+            var marker_1b169de0f230f41108387f6dd5adcdaa = L.marker(
+                [34.0, 9.0],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_a48438f265d6806bffa9dc672e21a5ba = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_902f3b5edb506c986acb735417e8aeb4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_742af5a85b596bb081d4905f484541a0 = $(`<div id="html_742af5a85b596bb081d4905f484541a0" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Agriprotec </b><br>                 <i>Km 11, Route de Mornag, 2090 Mornag, Tunisia</i><br><br>                 <b>Distance:</b> 330.0 km<br>                 <b>Main Type:</b> Fertilizers<br>                 <b>Products:</b><br>                 • BASFOLIAR<br>• SIZE<br>• SLALGA<br>• 600<br>• VITANICA<br>• ...             </div>             </div>`)[0];
+                popup_902f3b5edb506c986acb735417e8aeb4.setContent(html_742af5a85b596bb081d4905f484541a0);
+            
+        
+
+        marker_1b169de0f230f41108387f6dd5adcdaa.bindPopup(popup_902f3b5edb506c986acb735417e8aeb4)
+        ;
+
+        
+    
+    
+                marker_1b169de0f230f41108387f6dd5adcdaa.setIcon(icon_a48438f265d6806bffa9dc672e21a5ba);
+            
+    
+            var marker_bf4a8bcfb3f5f99cdb3c78720b2eb3ec = L.marker(
+                [34.0, 9.0],
+                {
+}
+            ).addTo(marker_cluster_4b5dcf28382d9ca27c96c55de20d0341);
+        
+    
+            var icon_2ac0aa6ad4bbbbf15c1021e94e19c133 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b0e63ae16469f3fe992b6a2e0321d398 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_ef86bd419a697208d561af696f7e5c42 = $(`<div id="html_ef86bd419a697208d561af696f7e5c42" style="width: 100.0%; height: 100.0%;">             <div style="width:300px; font-size:12px;">                 <b>Agriup Distribution</b><br>                 <i>18, Rue Mhamed Ali - Mégrine côteau-2033, Tunisia</i><br><br>                 <b>Distance:</b> 330.0 km<br>                 <b>Main Type:</b> Fertilizers<br>                 <b>Products:</b><br>                 • SANBIO<br>• EPSOMIT<br>• SANBIO<br>• TERRA<br>• SANBIO<br>• ...             </div>             </div>`)[0];
+                popup_b0e63ae16469f3fe992b6a2e0321d398.setContent(html_ef86bd419a697208d561af696f7e5c42);
+            
+        
+
+        marker_bf4a8bcfb3f5f99cdb3c78720b2eb3ec.bindPopup(popup_b0e63ae16469f3fe992b6a2e0321d398)
+        ;
+
+        
+    
+    
+                marker_bf4a8bcfb3f5f99cdb3c78720b2eb3ec.setIcon(icon_2ac0aa6ad4bbbbf15c1021e94e19c133);
+            
+    
+            marker_cluster_4b5dcf28382d9ca27c96c55de20d0341.addTo(map_4a9f7e51530c9ab1fdf93240edf0baff);
+        
+</script>
+</html>

@@ -1,5 +1,4 @@
-# app.py
-from flask import Flask, request, render_template, Response, jsonify
+from flask import Flask, request, render_template, Response, jsonify , url_for
 from werkzeug.utils import secure_filename
 import os
 import pickle
@@ -8,6 +7,8 @@ from components.imagePestDetection import process_image_for_prediction
 from components.VideoPestDetection import process_video
 from components.webcamPestDetection import generate_webcam_frames, stop_webcam_feed, start_webcam_feed, process_latest_webcam_frame, latest_webcam_results, webcam_model, PEST_DATA_WEBCAM
 from components.fertilizer import get_fertilizer_recommendation
+from components.PriceEstimation import detect_objects
+from components.supplier_logic import find_nearby_suppliers, create_supplier_map
 
 app = Flask(__name__)
 
@@ -15,6 +16,7 @@ app = Flask(__name__)
 ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 ALLOWED_VIDEO_EXTENSIONS = {'mp4', 'avi', 'mov'}
 UPLOAD_FOLDER = 'static/uploads'  # Define upload folder
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Ensure upload folder exists
 if not os.path.exists(UPLOAD_FOLDER):
@@ -60,7 +62,6 @@ def predict_image():
         return render_template('error.html', message='Invalid image file type')
 
 
-
 @app.route('/predict_video', methods=['POST'])
 def predict_video():
     if 'video' not in request.files:
@@ -88,7 +89,6 @@ def predict_video():
             return render_template('error.html', message=f'Error processing video: {e}')
     else:
         return render_template('error.html', message='Invalid video file type')
-
 
 
 @app.route('/webcam_feed')
@@ -151,5 +151,59 @@ def fertilizer_recommendation():
     return render_template('fertilizer_form.html')
 
 
+#Mehdi yoloV5 donne le prix qu'on peut ganier
+@app.route('/PriceEstimation', methods=['GET', 'POST'])
+def PriceEstimation():
+    if request.method == 'POST':
+        img = request.files['image']
+        prix_kilo = float(request.form['prix_kilo'])
+        poids_fruit = float(request.form['poids_fruit'])
+        
+        img_path = "static/uploads/" + img.filename
+        img.save(img_path)
+
+        results, labels = detect_objects(img_path)
+        nb_fruits = len(labels)
+        poids_total_kg = (nb_fruits * poids_fruit) / 1000
+        gain = poids_total_kg * prix_kilo
+
+        return render_template('PriceEstimation.html', result=round(gain, 2), count=nb_fruits, uploaded_image_path=img_path)
+
+    return render_template('PriceEstimation.html')
+
+
+#Chercher le plus proche fournisseur
+@app.route('/supplier_search', methods=['GET', 'POST'])
+def supplier_search():
+    nearby_suppliers = None
+    folium_map_html = None
+    error = None
+
+    if request.method == 'POST':
+        try:
+            user_lat = float(request.form['latitude'])
+            user_lon = float(request.form['longitude'])
+            rayon = float(request.form['rayon'])
+
+            nearby, all_suppliers = find_nearby_suppliers(user_lat, user_lon, rayon)
+            nearby_suppliers = nearby
+
+            if not nearby_suppliers.empty:
+                m = create_supplier_map(user_lat, user_lon, nearby_suppliers, all_suppliers)
+                map_filename = 'supplier_map.html'
+                # Save to the static directory
+                map_filepath = os.path.join('static', map_filename)
+                m.save(map_filepath)
+                # Generate the URL for the static file
+                folium_map_html = url_for('static', filename=map_filename)
+            else:
+                folium_map_html = None # No map needed if no suppliers found
+
+        except ValueError:
+            error = "Invalid input. Please enter numeric values for latitude, longitude, and radius."
+        except Exception as e:
+            error = f"An error occurred: {e}"
+
+    return render_template('supplier_search.html', nearby_suppliers=nearby_suppliers, folium_map_html=folium_map_html, error=error)
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)  # Threaded=True for webcam

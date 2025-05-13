@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supplier Search</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 800px;
+      }
+      h2 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+      label {
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input[type="number"] {
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button[type="submit"] {
+        padding: 10px 15px;
+        background-color: #5cb85c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      button[type="submit"]:hover {
+        background-color: #4cae4c;
+      }
+      .results {
+        margin-top: 20px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f0f0f0;
+      }
+      .map-container {
+        width: 100%;
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        overflow: hidden; /* Ensure iframe respects border-radius */
+      }
+      .error {
+        color: red;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    {% include 'sidebar.html' %}
+    <div class="container">
+      <h2>Supplier Search Around a Location</h2>
+      <form method="POST">
+        <label for="latitude">Latitude:</label>
+        <input
+          type="number"
+          step="0.0001"
+          name="latitude"
+          id="latitude"
+          required
+        />
+
+        <label for="longitude">Longitude:</label>
+        <input
+          type="number"
+          step="0.0001"
+          name="longitude"
+          id="longitude"
+          required
+        />
+
+        <label for="rayon">Radius (km):</label>
+        <input type="number" step="1" name="rayon" id="rayon" required />
+
+        <button type="submit">Find Suppliers</button>
+      </form>
+
+      {% if error %}
+      <p class="error">{{ error }}</p>
+      {% endif %} {% if nearby_suppliers is not none %}
+      <div class="results">
+        {% if nearby_suppliers.empty %}
+        <p>No suppliers found within the specified radius.</p>
+        {% else %}
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Address</th>
+              <th>Distance (km)</th>
+              <th>Products</th>
+            </tr>
+          </thead>
+          <tbody>
+            <h3>Map of Suppliers</h3>
+            {% endif %} {% if folium_map_html %}
+            <div class="map-container">
+              
+              <iframe
+                src="{{ folium_map_html }}"
+                width="100%"
+                height="400"
+                frameborder="0"
+              ></iframe>
+            </div>
+            <h3>Nearby Suppliers:</h3>
+            {% endif %} {% for index, supplier in nearby_suppliers.iterrows() %}
+            <tr>
+              <td>{{ supplier['Societe'] }}</td>
+              <td>{{ supplier['Adresse'] }}</td>
+              <td>{{ supplier['Distance']|round(1) }}</td>
+              <td>{{ supplier['Produits'] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>
