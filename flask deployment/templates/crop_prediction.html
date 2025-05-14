@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Crop Prediction</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            padding-left: 240px;
+            transition: padding-left 0.3s ease;
+        }
+
+        body.sidebar-collapsed {
+            padding-left: 60px;
+            transition: padding-left 0.3s ease;
+        }
+
+        .main-content {
+            padding: 20px;
+            margin-top: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        body.sidebar-collapsed .main-content {
+            margin-left: 60px;
+        }
+
+        .prediction-form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            position: relative; /* For tooltip positioning */
+        }
+
+        .range-input-container {
+            display: flex;
+            align-items: center;
+            padding: 8px 10px;
+            border-radius: 6px;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            position: relative; /* For dynamic value */
+        }
+
+        .range-value-dynamic {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        input[type="range"]:focus + .range-input-container .range-value-dynamic,
+        input[type="range"]:hover + .range-input-container .range-value-dynamic {
+            opacity: 1;
+        }
+
+        fieldset {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        legend {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        .tooltip {
+            position: absolute;
+            top: -25px;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            white-space: nowrap;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        label:hover + .tooltip {
+            opacity: 1;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-right: 15px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #ddd;
+            border-radius: 5px;
+            height: 10px;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #ff9800;
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: #ff9800;
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            background: #ddd;
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        input[type="range"]::-moz-range-track {
+            background: #ddd;
+            height: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .range-value {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 6px;
+            box-sizing: border-box;
+            font-size: 0.9em;
+        }
+
+        input[type="submit"] {
+            grid-column: 1 / span 2;
+            width: 100%;
+            padding: 12px;
+            background-color: #5cb85c;
+            color: white;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+
+        .result, .error {
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .result {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .prediction-result {
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            background-color: #e6ffe6;
+            color: #2e8b57;
+            border: 1px solid #bce0b0;
+        }
+
+        .prediction-result i {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+
+    <div class="main-content">
+        <div class="prediction-form-container">
+            <h2>Agricultural Crop Prediction</h2>
+            <form method="POST">
+                <fieldset>
+                    <legend>Soil Nutrients</legend>
+                    <label for="nitrogen">Nitrogen (N):</label>
+                    <div class="range-input-container">
+                        <input
+                            type="range"
+                            id="nitrogen"
+                            name="nitrogen"
+                            min="0"
+                            max="200"
+                            value="0"
+                            oninput="this.nextElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;"
+                            required
+                        />
+                        <span class="range-value-dynamic">0</span>
+                        <input type="number" class="range-value" value="0" min="0" max="200" oninput="this.previousElementSibling.previousElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;">
+                    </div>
+                    <label for="phosphorus">Phosphorus (P):</label>
+                    <div class="range-input-container">
+                        <input
+                            type="range"
+                            id="phosphorus"
+                            name="phosphorus"
+                            min="0"
+                            max="150"
+                            value="0"
+                            oninput="this.nextElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;"
+                            required
+                        />
+                        <span class="range-value-dynamic">0</span>
+                        <input type="number" class="range-value" value="0" min="0" max="150" oninput="this.previousElementSibling.previousElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;">
+                    </div>
+                    <label for="potassium">Potassium (K):</label>
+                    <div class="range-input-container">
+                        <input
+                            type="range"
+                            id="potassium"
+                            name="potassium"
+                            min="0"
+                            max="200"
+                            value="0"
+                            oninput="this.nextElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;"
+                            required
+                        />
+                        <span class="range-value-dynamic">0</span>
+                        <input type="number" class="range-value" value="0" min="0" max="200" oninput="this.previousElementSibling.previousElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Environmental Conditions</legend>
+                    <label for="temperature">Temperature (°C):</label>
+                    <div class="range-input-container">
+                        <input
+                            type="range"
+                            id="temperature"
+                            name="temperature"
+                            min="0"
+                            max="50"
+                            step="0.1"
+                            value="0"
+                            oninput="this.nextElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;"
+                            required
+                        />
+                        <span class="range-value-dynamic">0</span>
+                        <input type="number" class="range-value" value="0" min="0" max="50" step="0.1" oninput="this.previousElementSibling.previousElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;">
+                    </div>
+                    <label for="humidity">Humidity (%):</label>
+                    <div class="range-input-container">
+                        <input
+                            type="range"
+                            id="humidity"
+                            name="humidity"
+                            min="0"
+                            max="100"
+                            step="0.1"
+                            value="0"
+                            oninput="this.nextElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;"
+                            required
+                        />
+                        <span class="range-value-dynamic">0</span>
+                        <input type="number" class="range-value" value="0" min="0" max="100" step="0.1" oninput="this.previousElementSibling.previousElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;">
+                    </div>
+                    <label for="ph">pH:</label>
+                    <div class="range-input-container">
+                        <input
+                            type="range"
+                            id="ph"
+                            name="ph"
+                            min="0"
+                            max="14"
+                            step="0.1"
+                            value="0"
+                            oninput="this.nextElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;"
+                            required
+                        />
+                        <span class="range-value-dynamic">0</span>
+                        <input type="number" class="range-value" value="0" min="0" max="14" step="0.1" oninput="this.previousElementSibling.previousElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;">
+                    </div>
+                    <label for="rainfall">Rainfall (mm):</label>
+                    <div class="range-input-container">
+                        <input
+                            type="range"
+                            id="rainfall"
+                            name="rainfall"
+                            min="0"
+                            max="300"
+                            value="0"
+                            oninput="this.nextElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;"
+                            required
+                        />
+                        <span class="range-value-dynamic">0</span>
+                        <input type="number" class="range-value" value="0" min="0" max="300" oninput="this.previousElementSibling.previousElementSibling.value = this.value; this.previousElementSibling.textContent = this.value;">
+                    </div>
+                </fieldset>
+
+                <input type="submit" value="Predict Crop" />
+            </form>
+
+            {% if prediction %}
+                {% if "Erreur" in prediction or "valeurs numériques valides" in prediction or "erreur" in prediction|lower %}
+                    <div class="error">{{ prediction }}</div>
+                {% else %}
+                    <div class="prediction-result"><i class="material-icons">check_circle_outline</i> {{ prediction }}</div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const body = document.body;
+        const collapseToggle = document.getElementById('collapse-toggle');
+        const dropdownParent = document.querySelector('.dropdown-parent');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        const dropdownLinks = dropdownMenu.querySelectorAll('li a');
+
+        if (collapseToggle) {
+            collapseToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                body.classList.toggle('sidebar-collapsed');
+                if (sidebar.classList.contains('collapsed')) {
+                    if (dropdownMenu) dropdownMenu.style.display = 'none';
+                    collapseToggle.querySelector('span').textContent = 'Expand';
+                    collapseToggle.querySelector('i').textContent = 'menu_open';
+                } else {
+                    collapseToggle.querySelector('span').textContent = 'Collapse';
+                    collapseToggle.querySelector('i').textContent = 'menu';
+                }
+            });
+        }
+
+        if (dropdownParent && dropdownMenu) {
+            dropdownParent.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (!sidebar.classList.contains('collapsed')) {
+                    dropdownMenu.style.display = dropdownMenu.style.display === 'none' ? 'block' : 'none';
+                }
+            });
+
+            dropdownLinks.forEach(link => {
+                link.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                    if (dropdownMenu.style.display === 'block' && !sidebar.classList.contains('collapsed')) {
+                        dropdownMenu.style.display = 'none';
+                    }
+                });
+            });
+
+            dropdownMenu.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

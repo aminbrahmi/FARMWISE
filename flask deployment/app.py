@@ -9,6 +9,7 @@ from components.webcamPestDetection import generate_webcam_frames, stop_webcam_f
 from components.fertilizer import get_fertilizer_recommendation
 from components.PriceEstimation import detect_objects
 from components.supplier_logic import find_nearby_suppliers, create_supplier_map
+from components.crop_predictor import predict_crop
 
 app = Flask(__name__)
 
@@ -205,5 +206,28 @@ def supplier_search():
             error = f"An error occurred: {e}"
 
     return render_template('supplier_search.html', nearby_suppliers=nearby_suppliers, folium_map_html=folium_map_html, error=error)
+
+@app.route('/crop_prediction', methods=['GET', 'POST'])
+def crop_prediction():
+    prediction = None
+    
+    if request.method == 'POST':
+        try:
+            n = float(request.form['nitrogen'])
+            p = float(request.form['phosphorus'])
+            k = float(request.form['potassium'])
+            temp = float(request.form['temperature'])
+            humidity = float(request.form['humidity'])
+            ph = float(request.form['ph'])
+            rainfall = float(request.form['rainfall'])
+
+            prediction = predict_crop(n, p, k, temp, humidity, ph, rainfall)
+        except ValueError:
+            prediction = "Veuillez entrer des valeurs numériques valides."
+        except Exception as e:
+            prediction = f"Une erreur s'est produite lors de la prédiction : {e}"
+
+    return render_template('crop_prediction.html', prediction=prediction)
+
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)  # Threaded=True for webcam
