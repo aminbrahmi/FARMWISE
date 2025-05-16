@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Land Price Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 30px;
+            background-color: #f7f7f7; /* Lighter background */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Softer, larger shadow */
+            width: 95%;
+            max-width: 650px; /* Slightly wider */
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+        }
+        form {
+            display: grid;
+            grid-gap: 20px; /* Increased gap for better spacing */
+            grid-template-columns: 1fr; /* Single column layout for better flow on smaller screens */
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+            font-size: 1.1rem;
+        }
+        select, input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 6px; /* More rounded corners */
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+        select:focus, input[type="number"]:focus {
+            outline: none;
+            border-color: #5cb85c;
+            box-shadow: 0 0 8px rgba(92, 184, 92, 0.3); /* Softer focus shadow */
+        }
+        .infrastructure-group, .features-group {
+            margin-bottom: 25px;
+            padding: 15px;
+            border: 1px solid #eee; /* Light border for the groups */
+            border-radius: 6px;
+        }
+        .infrastructure-group label, .features-group label {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        .infrastructure-item, .features-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .infrastructure-item input[type="checkbox"], .features-item input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            transform: scale(1.1); /* Slightly larger checkboxes */
+        }
+        .infrastructure-item label, .features-item label {
+            font-weight: normal; /* Less bold for individual checkbox labels */
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+        .optional-label {
+            font-style: italic;
+            color: #777;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+        button[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            padding: 15px 30px; /* Larger button */
+            border: none;
+            border-radius: 8px; /* More rounded button */
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle button shadow */
+        }
+        button[type="submit"]:hover {
+            background-color: #4cae4c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly more shadow on hover */
+        }
+        .prediction {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #d1ecf1;
+            background-color: #b8e1b8;
+            color: #0c601b;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .prediction h2 {
+            margin-top: 0;
+            color: #0c5460; /* Keeping a slightly different color for the title */
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <div class="container">
+        <h1>Land Price Prediction</h1>
+
+        {% if prediction_text %}
+        <div class="prediction">
+            <h2>Prediction Result</h2>
+            <p>{{ prediction_text }}</p>
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('land_price_prediction_route') }}">
+            <div>
+                <label for="Gouvernorat">Gouvernorat:</label>
+                <select name="Gouvernorat" id="Gouvernorat" required>
+                    <option value="">Select Gouvernorat</option>
+                    {% for gov in gouvernorats %}
+                    <option value="{{ gov }}">{{ gov }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="Délégation">Delegation:</label>
+                <select name="Délégation" id="Délégation" required>
+                    <option value="">Select Delegation</option>
+                </select>
+            </div>
+            <div>
+                <label for="Proximité">Proximity: <span class="optional-label">(Optional)</span></label>
+                <select name="Proximité" id="Proximité">
+                    <option value="">Select Proximity (Optional)</option>
+                </select>
+            </div>
+
+            <div class="infrastructure-group">
+                <label class="form-label block text-sm font-medium">
+                    Infrastructure: <span class="optional-label">(Optional)</span>
+                </label>
+                <div class="infrastructure-item">
+                    <input type="checkbox" name="Infrastructure" value="sondage" id="sondage">
+                    <label for="sondage" class="text-sm font-medium">Well</label>
+                </div>
+                <div class="infrastructure-item">
+                    <input type="checkbox" name="Infrastructure" value="eau" id="eau">
+                    <label for="eau" class="text-sm font-medium">Water</label>
+                </div>
+                <div class="infrastructure-item">
+                    <input type="checkbox" name="Infrastructure" value="électricité" id="électricité">
+                    <label for="électricité" class="text-sm font-medium">Electricity</label>
+                </div>
+                <div class="infrastructure-item">
+                    <input type="checkbox" name="Infrastructure" value="gaz" id="gaz">
+                    <label for="gaz" class="text-sm font-medium">Gas</label>
+                </div>
+                <div class="infrastructure-item">
+                    <input type="checkbox" name="Infrastructure" value="téléphone" id="téléphone">
+                    <label for="téléphone" class="text-sm font-medium">Telephone</label>
+                </div>
+                <div class="infrastructure-item">
+                    <input type="checkbox" name="Infrastructure" value="puit" id="puit">
+                    <label for="puit" class="text-sm font-medium">Pond</label>
+                </div>
+            </div>
+
+            <div>
+                <label for="Type_Agriculture">Type of Agriculture: <span class="optional-label">(Optional)</span></label>
+                <select name="Type_Agriculture" id="Type_Agriculture">
+                    <option value="">Select Agriculture Type (Optional)</option>
+                    {% for agri_type in agriculture_types %}
+                    <option value="{{ agri_type }}">{{ agri_type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="features-group">
+                <label class="form-label block text-sm font-medium">
+                    Additional Features: <span class="optional-label">(Optional)</span>
+                </label>
+                <div class="features-item">
+                    <input type="checkbox" name="Additional_Features" value="titre foncier" id="titre_foncier">
+                    <label for="titre_foncier" class="text-sm font-medium">Land Title</label>
+                </div>
+                <div class="features-item">
+                    <input type="checkbox" name="Additional_Features" value="clôture" id="clôture">
+                    <label for="clôture" class="text-sm font-medium">Fence</label>
+                </div>
+                <div class="features-item">
+                    <input type="checkbox" name="Additional_Features" value="maison" id="maison">
+                    <label for="maison" class="text-sm font-medium">House</label>
+                </div>
+            </div>
+
+            <div>
+                <label for="Taille_m2">Size (m²):</label>
+                <input type="number" name="Taille_m2" id="Taille_m2" step="any" required>
+            </div>
+            <button type="submit">Predict Price</button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gouvernoratSelect = document.getElementById('Gouvernorat');
+            const delegationSelect = document.getElementById('Délégation');
+            const proximiteSelect = document.getElementById('Proximité');
+            const agricultureTypeSelect = document.getElementById('Type_Agriculture');
+
+            gouvernoratSelect.addEventListener('change', function() {
+                const selectedGov = this.value;
+                if (selectedGov) {
+                    fetch('/get_land_delegations', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ gouvernorat: selectedGov })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        delegationSelect.innerHTML = '<option value="">Select Délégation</option>';
+                        data.delegations.forEach(delg => {
+                            const option = document.createElement('option');
+                            option.value = delg;
+                            option.textContent = delg;
+                            delegationSelect.appendChild(option);
+                        });
+                        // Reset subsequent dropdowns when Gouvernorat changes
+                        proximiteSelect.innerHTML = '<option value="">Select Proximity (Optional)</option>';
+                        agricultureTypeSelect.innerHTML = '<option value="">Select Agriculture Type (Optional)</option>';
+                    });
+                } else {
+                    delegationSelect.innerHTML = '<option value="">Select Délégation</option>';
+                    proximiteSelect.innerHTML = '<option value="">Select Proximity (Optional)</option>';
+                    agricultureTypeSelect.innerHTML = '<option value="">Select Agriculture Type (Optional)</option>';
+                }
+            });
+
+            delegationSelect.addEventListener('change', function() {
+                const selectedGov = gouvernoratSelect.value;
+                const selectedDelg = this.value;
+                if (selectedGov && selectedDelg) {
+                    fetch('/get_land_proximites', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ gouvernorat: selectedGov, delegation: selectedDelg })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        proximiteSelect.innerHTML = '<option value="">Select Proximity (Optional)</option>';
+                        data.proximites.forEach(prox => {
+                            const option = document.createElement('option');
+                            option.value = prox;
+                            option.textContent = prox;
+                            proximiteSelect.appendChild(option);
+                        });
+                    });
+
+                    fetch('/get_land_agriculture_types', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ gouvernorat: selectedGov, delegation: selectedDelg })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        agricultureTypeSelect.innerHTML = '<option value="">Select Agriculture Type (Optional)</option>';
+                        data.agriculture_types.forEach(agri => {
+                            const option = document.createElement('option');
+                            option.value = agri;
+                            option.textContent = agri;
+                            agricultureTypeSelect.appendChild(option);
+                        });
+                    });
+                } else {
+                    proximiteSelect.innerHTML = '<option value="">Select Proximity (Optional)</option>';
+                    agricultureTypeSelect.innerHTML = '<option value="">Select Agriculture Type (Optional)</option>';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

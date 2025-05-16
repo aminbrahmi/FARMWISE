@@ -1,7 +1,8 @@
-from flask import Flask, request, render_template, Response, jsonify , url_for
+from flask import Flask, request, render_template, Response, jsonify, url_for, redirect, session
 from werkzeug.utils import secure_filename
 import os
 import pickle
+import joblib
 import pandas as pd
 from components.imagePestDetection import process_image_for_prediction
 from components.VideoPestDetection import process_video
@@ -10,8 +11,10 @@ from components.fertilizer import get_fertilizer_recommendation
 from components.PriceEstimation import detect_objects
 from components.supplier_logic import find_nearby_suppliers, create_supplier_map
 from components.crop_predictor import predict_crop
+from components.land_price_prediction import predict_land_price
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key_here'  # Needed for session
 
 # Configure allowed file types
 ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -159,7 +162,7 @@ def PriceEstimation():
         img = request.files['image']
         prix_kilo = float(request.form['prix_kilo'])
         poids_fruit = float(request.form['poids_fruit'])
-        
+
         img_path = "static/uploads/" + img.filename
         img.save(img_path)
 
@@ -206,11 +209,11 @@ def supplier_search():
             error = f"An error occurred: {e}"
 
     return render_template('supplier_search.html', nearby_suppliers=nearby_suppliers, folium_map_html=folium_map_html, error=error)
-
+# oumaima model 1 
 @app.route('/crop_prediction', methods=['GET', 'POST'])
 def crop_prediction():
     prediction = None
-    
+
     if request.method == 'POST':
         try:
             n = float(request.form['nitrogen'])
@@ -228,6 +231,94 @@ def crop_prediction():
             prediction = f"Une erreur s'est produite lors de la prédiction : {e}"
 
     return render_template('crop_prediction.html', prediction=prediction)
+
+# Amine's work :
+@app.route('/land_price_test')
+def land_price_test():
+    prediction, error = predict_land_price({}) # Pass an empty dict
+    return render_template('land_price_prediction.html', prediction_result=prediction, error=error)
+
+
+##
+@app.route('/land_price_prediction', methods=['GET', 'POST'])
+def land_price_prediction_route():
+    gouvernorats = sorted(pd.read_csv("utils/agriculture_lands_tn.csv")["Gouvernorat"].dropna().unique())
+    delegations = sorted(pd.read_csv("utils/agriculture_lands_tn.csv")["Délégation"].dropna().unique())
+    agriculture_types = sorted(pd.read_csv("utils/agriculture_lands_tn.csv")["Type_Agriculture"].dropna().unique())
+    prediction_text = session.pop("prediction_text", "")
+    if request.method == 'POST':
+        try:
+            data = {
+                'Gouvernorat': request.form['Gouvernorat'],
+                'Délégation': request.form['Délégation'],
+                'Proximité': request.form.get('Proximité') or 'aucun',
+                'Infrastructure': ', '.join(request.form.getlist('Infrastructure')) or 'aucun',
+                'Type_Agriculture': request.form.get('Type_Agriculture') or 'aucun',
+                'Additional_Features': ', '.join(request.form.getlist('Additional_Features')) or 'aucun',
+                'Taille_m2': request.form['Taille_m2']
+            }
+            prediction_result, error = predict_land_price(data)
+
+            if error:
+                session["prediction_text"] = f"Error: {error}"
+                return redirect(url_for("land_price_prediction_route"))
+            else:
+                prix_total = float(prediction_result['prix_total_prevu'])
+                prix_m2 = float(prediction_result['prix_m2_prevu'])
+                session["prediction_text"] = f"Estimated Price: {prix_total:,.2f} TND ({prix_m2:.2f} TND/m²)"
+                return redirect(url_for("land_price_result", prediction_text=session["prediction_text"], **data))
+
+        except Exception as e:
+            session["prediction_text"] = f"Error processing prediction: {str(e)}"
+            return redirect(url_for("land_price_prediction_route"))
+
+    return render_template("land_price_prediction.html", gouvernorats=gouvernorats, delegations=delegations, agriculture_types=agriculture_types, prediction_text=prediction_text)
+
+
+@app.route("/land_price_result")
+def land_price_result():
+    prediction_text = request.args.get("prediction_text")
+    governorate = request.args.get("Gouvernorat")
+    delegation = request.args.get("Délégation")
+    proximity = request.args.get("Proximité")
+    infrastructure = request.args.get("Infrastructure")
+    agriculture_type = request.args.get("Type_Agriculture")
+    additional_features = request.args.get("Additional_Features")
+    size = request.args.get("Taille_m2")
+
+    return render_template("land_price_result.html", prediction_text=prediction_text,
+                           governorate=governorate, delegation=delegation, proximity=proximity,
+                           infrastructure=infrastructure, agriculture_type=agriculture_type,
+                           additional_features=additional_features, size=size)
+
+@app.route("/get_land_delegations", methods=["POST"])
+def get_land_delegations():
+    selected_gov = request.json.get("gouvernorat")
+    df = pd.read_csv("utils/agriculture_lands_tn.csv")
+    filtered_delegations = df[df["Gouvernorat"] == selected_gov]["Délégation"].dropna().unique().tolist()
+    return jsonify({"delegations": filtered_delegations})
+
+@app.route("/get_land_proximites", methods=["POST"])
+def get_land_proximites():
+    data = request.json
+    gov = data.get("gouvernorat")
+    delg = data.get("delegation")
+    df = pd.read_csv("utils/agriculture_lands_tn.csv")
+    filtered = df[(df["Gouvernorat"] == gov) & (df["Délégation"] == delg)]
+    proximites = filtered["Proximité"].dropna().unique().tolist()
+    return jsonify({"proximites": proximites})
+
+@app.route("/get_land_agriculture_types", methods=["POST"])
+def get_land_agriculture_types():
+    data = request.json
+    gov = data.get("gouvernorat")
+    delg = data.get("delegation")
+    df = pd.read_csv("utils/agriculture_lands_tn.csv")
+    filtered_data = df[(df["Gouvernorat"] == gov) & (df["Délégation"] == delg)]
+    agriculture_types = filtered_data["Type_Agriculture"].dropna().unique().tolist()
+    return jsonify({"agriculture_types": agriculture_types})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)  # Threaded=True for webcam

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f6f9; /* Light grey background */
+            color: #333;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            width: 95%;
+            max-width: 700px; /* Slightly wider container */
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50; /* Darker heading color */
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+        }
+        .result-container {
+            background-color: #e9ecef; /* Light grey background for result */
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            text-align: left;
+            border: 1px solid #ced4da; /* Subtle border */
+        }
+        .result-container h2 {
+            color: #28a745; /* Green for positive result */
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        .result-container p {
+            font-size: 1.1rem;
+            color: #495057;
+            margin-bottom: 20px;
+        }
+        .result-container h3 {
+            color: #343a40; /* Dark grey for subheading */
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        .result-container ul {
+            padding-left: 25px;
+            list-style: none; /* Remove default bullet points */
+        }
+        .result-container li {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: #555;
+        }
+        .result-container li strong {
+            font-weight: bold;
+            color: #333;
+            margin-right: 5px;
+        }
+        .back-button {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .back-button a {
+            text-decoration: none;
+            background-color: #4cae4c; /* Primary blue */
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+        .back-button a:hover {
+            background-color: #4e804e; /* Darker blue on hover */
+        }
+        /* Style for "N/A" values */
+        .na-value {
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <div class="container">
+        <h1>Land Price Prediction Result</h1>
+
+        <div class="result-container">
+            <h2>Estimated Price</h2>
+            <p>{{ prediction_text }}</p>
+            <h3>Input Features:</h3>
+            <ul>
+                <li><strong>Gouvernorat:</strong> {{ governorate }}</li>
+                <li><strong>Délégation:</strong> {{ delegation }}</li>
+                <li><strong>Proximité:</strong> {% if proximity %}{{ proximity }}{% else %}<span class="na-value">N/A</span>{% endif %}</li>
+                <li><strong>Infrastructure:</strong> {% if infrastructure %}{{ infrastructure }}{% else %}<span class="na-value">N/A</span>{% endif %}</li>
+                <li><strong>Type Agriculture:</strong> {% if agriculture_type %}{{ agriculture_type }}{% else %}<span class="na-value">N/A</span>{% endif %}</li>
+                <li><strong>Additional Features:</strong> {% if additional_features %}{{ additional_features }}{% else %}<span class="na-value">N/A</span>{% endif %}</li>
+                <li><strong>Size (m²):</strong> {{ size }}</li>
+            </ul>
+        </div>
+
+        <div class="back-button">
+            <a href="{{ url_for('land_price_prediction_route') }}">Go Back to Prediction Form</a>
+        </div>
+    </div>
+</body>
+</html>
