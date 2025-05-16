@@ -4,6 +4,8 @@ import os
 import pickle
 import joblib
 import pandas as pd
+import sys
+from importlib import reload
 from components.imagePestDetection import process_image_for_prediction
 from components.VideoPestDetection import process_video
 from components.webcamPestDetection import generate_webcam_frames, stop_webcam_feed, start_webcam_feed, process_latest_webcam_frame, latest_webcam_results, webcam_model, PEST_DATA_WEBCAM
@@ -12,6 +14,8 @@ from components.PriceEstimation import detect_objects
 from components.supplier_logic import find_nearby_suppliers, create_supplier_map
 from components.crop_predictor import predict_crop
 from components.land_price_prediction import predict_land_price
+from components.leaf_prediction import predict_leaf_disease 
+
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Needed for session
@@ -318,6 +322,34 @@ def get_land_agriculture_types():
     agriculture_types = filtered_data["Type_Agriculture"].dropna().unique().tolist()
     return jsonify({"agriculture_types": agriculture_types})
 
+
+#oumaima model 2 :
+@app.route('/predict_leaf_disease1', methods=['GET', 'POST'])
+def handle_leaf_disease_prediction():  # ✅ nom différent ici
+    if 'leaf_image' not in request.files:
+        return render_template('LeafDiseaseDetection.html', error='No leaf image file provided')
+
+    file = request.files['leaf_image']
+
+    if file.filename == '':
+        return render_template('LeafDiseaseDetection.html', error='No leaf image selected')
+
+    if file and allowed_file(file.filename, ALLOWED_IMAGE_EXTENSIONS):
+        try:
+            img_bytes = file.read()
+            prediction_result = predict_leaf_disease(img_bytes)  # ✅ appelle la fonction importée
+            if "error" in prediction_result:
+                return render_template('LeafDiseaseDetection.html', error=prediction_result["error"])
+            else:
+                return render_template(
+                    'LeafDiseaseDetection.html',
+                    prediction=f'Predicted disease: {prediction_result["prediction"]}',
+                    confidence=prediction_result["confidence"]
+                )
+        except Exception as e:
+            return render_template('LeafDiseaseDetection.html', error=f'Error processing leaf image: {e}')
+    else:
+        return render_template('LeafDiseaseDetection.html', error='Invalid leaf image file type')
 
 
 if __name__ == '__main__':
