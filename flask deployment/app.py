@@ -15,6 +15,7 @@ from components.supplier_logic import find_nearby_suppliers, create_supplier_map
 from components.crop_predictor import predict_crop
 from components.land_price_prediction import predict_land_price
 from components.leaf_prediction import predict_leaf_disease 
+from components.toxic_plant_logic import predict_toxic_plant
 
 
 app = Flask(__name__)
@@ -350,6 +351,29 @@ def handle_leaf_disease_prediction():  # ✅ nom différent ici
             return render_template('LeafDiseaseDetection.html', error=f'Error processing leaf image: {e}')
     else:
         return render_template('LeafDiseaseDetection.html', error='Invalid leaf image file type')
+
+#ines
+@app.route('/predict_toxic_plant', methods=['POST'])
+def predict_toxic_plant_endpoint():
+    """Endpoint for toxic plant image classification."""
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image uploaded'}), 400
+
+    image_file = request.files['image']
+    if image_file.filename == '':
+        return jsonify({'error': 'No image selected'}), 400
+
+    if image_file and allowed_file(image_file.filename, ALLOWED_IMAGE_EXTENSIONS):
+        image_bytes = image_file.read()
+        prediction = predict_toxic_plant(image_bytes)
+        return jsonify(prediction)
+    else:
+        return jsonify({'error': 'Invalid image file type'}), 400
+
+@app.route('/toxic_plant_detection', methods=['GET'])
+def toxic_plant_detection_page():
+    """Renders a page for toxic plant image upload."""
+    return render_template('ToxicPlantDetection.html') 
 
 
 if __name__ == '__main__':
