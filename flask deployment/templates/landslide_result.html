@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landslide Detection Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* Existing styles for body, container, h1, h2, p, img, a, etc. should remain */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding-left: 260px; /* Adjust based on sidebar width + some spacing */
+            background-color: #f4f7f6; /* Light, soft background */
+            color: #333; /* Darker text for better readability */
+            transition: padding-left 0.3s ease;
+            display: block; /* Override flex display */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Softer, more pronounced shadow */
+            width: 80%; /* Adjust width as needed */
+            max-width: 700px; /* Slightly wider for potential images */
+            text-align: center;
+            margin-top: 20px; /* Add some top margin to avoid overlap with fixed sidebar */
+            margin-left: auto; /* Push container to the right */
+            margin-right: auto;
+        }
+
+        h1 {
+            color: #1d623a; /* Consistent with your sidebar color */
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        p strong {
+            font-weight: 700;
+            color: #1d623a;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            max-width: 100%; /* Make images responsive within their wrapper */
+            height: auto;
+        }
+
+        p a {
+            color: #55acee; /* A nice blue for links */
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+
+        p a:hover {
+            color: #3d85c6; /* Darker shade on hover */
+            text-decoration: underline;
+        }
+
+        body.sidebar-collapsed {
+            padding-left: 80px; /* Adjust for collapsed sidebar */
+        }
+
+        .container.sidebar-collapsed {
+            width: calc(80% - 180px); /* Adjust container width when sidebar is collapsed */
+        }
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <div class="container">
+        <h1>Landslide Detection Result</h1>
+        {% if result %}
+            <div class="result-section">
+                <h2>{{ result }}</h2>
+
+                {% if show_landslide and prediction_url %}
+                    <div class="image-wrapper">
+                        <img src="{{ prediction_url }}" alt="Predicted Mask" />
+                    </div>
+                    <a class="download-button" href="{{ prediction_url }}" download>Download Result</a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if uploaded_image_url %}
+            <h2>Uploaded Image</h2>
+            <img src="{{ uploaded_image_url }}" alt="Uploaded Image" style="max-width: 500px;">
+        {% endif %}
+
+        <br>
+        <p><a href="{{ url_for('landslide_detection_page') }}">Detect Another Image</a></p>
+        <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    </div>
+
+    <script>
+        const body = document.body;
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar && body) {
+            if (sidebar.classList.contains('collapsed')) {
+                body.classList.add('sidebar-collapsed');
+            } else {
+                body.classList.remove('sidebar-collapsed');
+            }
+        }
+    </script>
+</body>
+</html>

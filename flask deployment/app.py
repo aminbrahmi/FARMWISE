@@ -16,6 +16,7 @@ from components.crop_predictor import predict_crop
 from components.land_price_prediction import predict_land_price
 from components.leaf_prediction import predict_leaf_disease 
 from components.toxic_plant_logic import predict_toxic_plant
+from components.landslide_logic import detect_landslide_logic
 
 
 app = Flask(__name__)
@@ -375,6 +376,25 @@ def toxic_plant_detection_page():
     """Renders a page for toxic plant image upload."""
     return render_template('ToxicPlantDetection.html') 
 
+
+#Amine model 2
+@app.route('/landslide_detection_page', methods=['GET'])
+def landslide_detection_page():
+    return render_template('LandslideDetection.html')
+
+@app.route('/detect_landslide', methods=['POST'])
+def detect_landslide_route():
+    result = detect_landslide_logic(request)
+    if 'error' in result:
+        return render_template('error.html', message=result['error'])
+    else:
+        return render_template(
+            'landslide_result.html',
+            result=result['result'],
+            uploaded_image_url=result['uploaded_image_url'],
+            prediction_url=result['prediction_url'],
+            show_landslide=result['show_landslide'],
+        )
 
 if __name__ == '__main__':
     app.run(debug=True, threaded=True)  # Threaded=True for webcam

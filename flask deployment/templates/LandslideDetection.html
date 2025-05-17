@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landslide Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding-left: 260px; /* Adjust based on sidebar width + some spacing */
+            background-color: #f4f7f6; /* Light, soft background */
+            color: #333; /* Darker text for better readability */
+            transition: padding-left 0.3s ease;
+            display: block; /* Override flex display */
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Softer, more pronounced shadow */
+            width: 80%; /* Adjust width as needed */
+            max-width: 600px; /* Limit maximum width */
+            text-align: center;
+            margin-top: 20px; /* Add some top margin to avoid overlap with fixed sidebar */
+            margin-left: auto; /* Push container to the right */
+            margin-right: auto;
+        }
+
+        h1 {
+            color: #1d623a; /* Consistent with your sidebar color */
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: #555;
+            font-weight: 600;
+        }
+
+        input[type="file"] {
+            padding: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="file"]:focus {
+            border-color: #1d623a;
+            outline: none;
+            box-shadow: 0 0 8px rgba(29, 98, 58, 0.2); /* Subtle focus effect */
+        }
+
+        .button {
+            background-color: #2ecc71; /* A brighter, more inviting green */
+            color: white;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .button:hover {
+            background-color: #27ae60; /* Darker shade on hover */
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+
+        .button:active {
+            transform: translateY(0); /* Reset transform when active */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        p a {
+            color: #55acee; /* A nice blue for links */
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+
+        p a:hover {
+            color: #3d85c6; /* Darker shade on hover */
+            text-decoration: underline;
+        }
+
+        body.sidebar-collapsed {
+            padding-left: 80px; /* Adjust for collapsed sidebar */
+        }
+
+        .container.sidebar-collapsed {
+            width: calc(80% - 180px); /* Adjust container width when sidebar is collapsed */
+        }
+    </style>
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <div class="container">
+        <h1>Landslide Detection</h1>
+        <form method="POST" action="/detect_landslide" enctype="multipart/form-data">
+            <label for="file">Upload .h5 Image:</label>
+            <input type="file" name="file" id="file" accept=".h5" required>
+            <button type="submit" class="button">Detect Landslide</button>
+        </form>
+        <br>
+        <p><a href="{{ url_for('home') }}">Back to Home</a></p>
+    </div>
+</body>
+</html>
