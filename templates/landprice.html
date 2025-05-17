@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Land Price Estimation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .form-container {
+            background-color: #e9f5e9; /* Light background */
+        }
+        .form-heading {
+            color: #3c603c; /* Dark text for heading */
+        }
+        .form-label {
+            color: #4b5563; /* Medium gray for labels */
+        }
+        .form-input {
+            border-color: #d1d5db; /* Light border */
+        }
+        .form-button {
+            background-color: #10b981; /* Green button */
+            color: white;
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+        .form-button:hover {
+            background-color: #059669; /* Darker green on hover */
+        }
+        .error-message {
+            color: #dc2626; /* Red for error messages */
+        }
+    </style>
+</head>
+<body>
+    <div class="container max-w-2xl mx-auto form-container rounded-lg shadow-md p-8 mt-10">
+        <h2 class="form-heading text-2xl font-semibold mb-6 text-center">
+            Agricultural Land Price Estimation
+        </h2>
+
+        <form action="/predictPrice" method="post" class="space-y-4">
+            <!-- Governorate -->
+            <div>
+                <label for="gouvernorat" class="form-label block text-sm font-medium">
+                    Governorate:
+                </label>
+                <select name="Gouvernorat" id="gouvernorat" required class="form-input mt-1 block w-full rounded-md py-2 px-3">
+                    <option value="" disabled selected>-- Select a Governorate --</option>
+                    {% for gov in gouvernorats %}
+                        <option value="{{ gov }}">{{ gov }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Delegation -->
+            <div>
+                <label for="delegation" class="form-label block text-sm font-medium">
+                    Delegation:
+                </label>
+                <select name="Délégation" id="delegation" required class="form-input mt-1 block w-full rounded-md py-2 px-3">
+                    <option value="" disabled selected>-- Select a Governorate first --</option>
+                </select>
+            </div>
+
+            <!-- Proximity -->
+            <div>
+                <label for="proximite" class="form-label block text-sm font-medium">
+                    Proximity (Optional):
+                </label>
+                <select name="Proximité" id="proximite" class="form-input mt-1 block w-full rounded-md py-2 px-3">
+                    <option value="">-- Select a Delegation first --</option>
+                </select>
+            </div>
+
+            <!-- Type of Agriculture -->
+            <div>
+                <label for="type_agriculture" class="form-label block text-sm font-medium">
+                    Type of Agriculture (Optional):
+                </label>
+                <select name="Type_Agriculture" id="type_agriculture" class="form-input mt-1 block w-full rounded-md py-2 px-3">
+                    <option value="" selected>-- Select Type of Agriculture (Optional) --</option>
+                    {% for type in agriculture_types %}
+                        <option value="{{ type }}">{{ type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Infrastructure (Optional) -->
+            <div>
+                <label class="form-label block text-sm font-medium">
+                    Infrastructure (Optional):
+                </label>
+                <div>
+                    <input type="checkbox" name="Infrastructure" value="sondage" id="sondage">
+                    <label for="sondage" class="text-sm font-medium">Sondage</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Infrastructure" value="eau" id="eau">
+                    <label for="eau" class="text-sm font-medium">Eau</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Infrastructure" value="électricité" id="électricité">
+                    <label for="électricité" class="text-sm font-medium">Électricité</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Infrastructure" value="gaz" id="gaz">
+                    <label for="gaz" class="text-sm font-medium">Gaz</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Infrastructure" value="téléphone" id="téléphone">
+                    <label for="téléphone" class="text-sm font-medium">Téléphone</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Infrastructure" value="puit" id="puit">
+                    <label for="puit" class="text-sm font-medium">Puit</label>
+                </div>
+            </div>
+
+            <!-- Additional Features (Optional) -->
+            <div>
+                <label class="form-label block text-sm font-medium">
+                    Additional Features (Optional):
+                </label>
+                <div>
+                    <input type="checkbox" name="Additional_Features" value="titre foncier" id="titre_foncier">
+                    <label for="titre_foncier" class="text-sm font-medium">Titre Foncier</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Additional_Features" value="clôture" id="clôture">
+                    <label for="clôture" class="text-sm font-medium">Clôture</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Additional_Features" value="maison" id="maison">
+                    <label for="maison" class="text-sm font-medium">Maison</label>
+                </div>
+            </div>
+
+            <!-- Size (m²) -->
+            <div>
+                <label for="taille" class="form-label block text-sm font-medium">
+                    Size (m²):
+                </label>
+                <input type="number" id="taille" name="Taille_m2" placeholder="Size (m²)" step="1" min="1000" required class="form-input mt-1 block w-full rounded-md py-2 px-3"/>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+                <button type="submit" class="form-button rounded-md py-2 px-4 font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 sm:text-sm">
+                    Estimate Price
+                </button>
+            </div>
+        </form>
+
+        {% if prediction_text %}
+            <h3 class="mt-6 text-center text-lg">{{ prediction_text | safe }}</h3>
+        {% endif %}
+    </div>
+
+    <script>
+        const govSelect = document.getElementById("gouvernorat");
+        const delgSelect = document.getElementById("delegation");
+        const typeAgricultureSelect = document.getElementById("type_agriculture");
+        const proximiteSelect = document.getElementById("proximite");
+
+        govSelect.addEventListener("change", function () {
+            const selectedGov = this.value;
+
+            fetch("/get_delegations", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ gouvernorat: selectedGov })
+            })
+            .then(response => response.json())
+            .then(data => {
+                delgSelect.innerHTML = '<option value="" disabled selected>-- Select a Delegation --</option>';
+                proximiteSelect.innerHTML = '<option value="" disabled selected>-- Select a Delegation first --</option>';
+                typeAgricultureSelect.innerHTML = '<option value="" disabled selected>-- Select Type of Agriculture (Optional) --</option>';
+
+                data.delegations.forEach(function (delg) {
+                    const option = document.createElement("option");
+                    option.value = delg;
+                    option.text = delg;
+                    delgSelect.appendChild(option);
+                });
+            });
+        });
+
+        delgSelect.addEventListener("change", function () {
+            const selectedGov = govSelect.value;
+            const selectedDelg = this.value;
+
+            fetch("/get_agriculture_types", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ gouvernorat: selectedGov, delegation: selectedDelg })
+            })
+            .then(response => response.json())
+            .then(data => {
+                typeAgricultureSelect.innerHTML = '<option value="" selected>-- Select Type of Agriculture (Optional) --</option>';
+
+                if (data.agriculture_types.length === 0) {
+                    const option = document.createElement("option");
+                    option.value = "";
+                    option.text = "No types available";
+                    option.disabled = true;
+                    typeAgricultureSelect.appendChild(option);
+                } else {
+                    data.agriculture_types.forEach(function (type) {
+                        const option = document.createElement("option");
+                        option.value = type;
+                        option.text = type;
+                        typeAgricultureSelect.appendChild(option);
+                    });
+                }
+            });
+
+            fetch("/get_proximites", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ gouvernorat: selectedGov, delegation: selectedDelg })
+            })
+            .then(response => response.json())
+            .then(data => {
+                proximiteSelect.innerHTML = '<option value="" disabled selected>-- Select Proximity --</option>';
+
+                data.proximites.forEach(function (prox) {
+                    const option = document.createElement("option");
+                    option.value = prox;
+                    option.text = prox;
+                    proximiteSelect.appendChild(option);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
