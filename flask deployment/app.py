@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, Response, jsonify, url_for, redirect, session
+from flask import Flask, request, render_template, Response, jsonify, url_for, redirect, session, g, flash
 from werkzeug.utils import secure_filename
 import os
 import pickle
@@ -17,10 +17,15 @@ from components.land_price_prediction import predict_land_price
 from components.leaf_prediction import predict_leaf_disease 
 from components.toxic_plant_logic import predict_toxic_plant
 from components.landslide_logic import detect_landslide_logic
+from components.login import get_db, register_user, authenticate_user
+from functools import wraps
+
 
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # Needed for session
+DATABASE = 'users.db'
+
 
 # Configure allowed file types
 ALLOWED_IMAGE_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -32,26 +37,88 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, '_database', None)
+    if db is not None:
+        db.close()
+
+def init_db():
+    with app.app_context():
+        db = get_db()
+        with app.open_resource('schema.sql', mode='r') as f:
+            db.cursor().executescript(f.read())
+        db.commit()
+
+@app.cli.command('initdb')
+def initdb_command():
+    """Initializes the database."""
+    init_db()
+    print('Initialized the database.')
+
+
 def allowed_file(filename, allowed_extensions):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        error = register_user(username, password)
+        if error is None:
+            return redirect(url_for('login'))
+        flash(error)
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user, error = authenticate_user(username, password)
+        if user:
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('home'))
+        flash(error)
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home'))
+
+def login_required(view):
+    @wraps(view)
+    def wrapped_view(**kwargs):
+        if session.get('user_id') is None:
+            return redirect(url_for('login'))
+        return view(**kwargs)
+    return wrapped_view
+
 @app.route('/', methods=['GET'])
+@login_required
 def home():
     return render_template('home.html')
 
 @app.route('/image_detection', methods=['GET'])
+@login_required
 def image_detection_page():
     return render_template('ImagePestDetection.html')
 
 @app.route('/video_detection', methods=['GET'])
+@login_required
 def video_detection_page():
     return render_template('VideoPestDetection.html')
 
 @app.route('/webcam_detection', methods=['GET'])
+@login_required
 def webcam_detection_page():
     return render_template('WebcamPestDetection.html')
 
 @app.route('/predict_image', methods=['POST'])
+@login_required
 def predict_image():
     if 'image' not in request.files:
         return render_template('error.html', message='No image file provided')
@@ -73,6 +140,7 @@ def predict_image():
 
 
 @app.route('/predict_video', methods=['POST'])
+@login_required
 def predict_video():
     if 'video' not in request.files:
         return render_template('error.html', message='No video file provided')
@@ -102,20 +170,24 @@ def predict_video():
 
 
 @app.route('/webcam_feed')
+@login_required
 def webcam_feed():
     return Response(generate_webcam_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/start_webcam')
+@login_required
 def start_webcam():
     start_webcam_feed()
     return jsonify({'status': 'webcam started'})
 
 @app.route('/stop_webcam')
+@login_required
 def stop_webcam():
     stop_webcam_feed()
     return jsonify({'status': 'webcam stopped'})
 
 @app.route('/get_webcam_prediction')
+@login_required
 def get_webcam_prediction():
     global webcam_model
     global PEST_DATA_WEBCAM
@@ -129,6 +201,7 @@ def get_webcam_prediction():
 
 # Fertilizer Recommendation Route
 @app.route('/fertilizer_recommendation', methods=['GET', 'POST'])
+@login_required
 def fertilizer_recommendation():
     if request.method == 'POST':
         n_input = int(request.form['nitrogen'])
@@ -163,6 +236,7 @@ def fertilizer_recommendation():
 
 #Mehdi yoloV5 donne le prix qu'on peut ganier
 @app.route('/PriceEstimation', methods=['GET', 'POST'])
+@login_required
 def PriceEstimation():
     if request.method == 'POST':
         img = request.files['image']
@@ -184,6 +258,7 @@ def PriceEstimation():
 
 #Chercher le plus proche fournisseur
 @app.route('/supplier_search', methods=['GET', 'POST'])
+@login_required
 def supplier_search():
     nearby_suppliers = None
     folium_map_html = None
@@ -217,6 +292,7 @@ def supplier_search():
     return render_template('supplier_search.html', nearby_suppliers=nearby_suppliers, folium_map_html=folium_map_html, error=error)
 # oumaima model 1 
 @app.route('/crop_prediction', methods=['GET', 'POST'])
+@login_required
 def crop_prediction():
     prediction = None
 
@@ -247,6 +323,7 @@ def land_price_test():
 
 ##
 @app.route('/land_price_prediction', methods=['GET', 'POST'])
+@login_required
 def land_price_prediction_route():
     gouvernorats = sorted(pd.read_csv("utils/agriculture_lands_tn.csv")["Gouvernorat"].dropna().unique())
     delegations = sorted(pd.read_csv("utils/agriculture_lands_tn.csv")["Délégation"].dropna().unique())
@@ -282,6 +359,7 @@ def land_price_prediction_route():
 
 
 @app.route("/land_price_result")
+@login_required
 def land_price_result():
     prediction_text = request.args.get("prediction_text")
     governorate = request.args.get("Gouvernorat")
@@ -298,6 +376,7 @@ def land_price_result():
                            additional_features=additional_features, size=size)
 
 @app.route("/get_land_delegations", methods=["POST"])
+@login_required
 def get_land_delegations():
     selected_gov = request.json.get("gouvernorat")
     df = pd.read_csv("utils/agriculture_lands_tn.csv")
@@ -305,6 +384,7 @@ def get_land_delegations():
     return jsonify({"delegations": filtered_delegations})
 
 @app.route("/get_land_proximites", methods=["POST"])
+@login_required
 def get_land_proximites():
     data = request.json
     gov = data.get("gouvernorat")
@@ -315,6 +395,7 @@ def get_land_proximites():
     return jsonify({"proximites": proximites})
 
 @app.route("/get_land_agriculture_types", methods=["POST"])
+@login_required
 def get_land_agriculture_types():
     data = request.json
     gov = data.get("gouvernorat")
@@ -327,6 +408,7 @@ def get_land_agriculture_types():
 
 #oumaima model 2 :
 @app.route('/predict_leaf_disease1', methods=['GET', 'POST'])
+@login_required
 def handle_leaf_disease_prediction():  # ✅ nom différent ici
     if 'leaf_image' not in request.files:
         return render_template('LeafDiseaseDetection.html', error='No leaf image file provided')
@@ -355,6 +437,7 @@ def handle_leaf_disease_prediction():  # ✅ nom différent ici
 
 #ines
 @app.route('/predict_toxic_plant', methods=['POST'])
+@login_required
 def predict_toxic_plant_endpoint():
     """Endpoint for toxic plant image classification."""
     if 'image' not in request.files:
@@ -372,6 +455,7 @@ def predict_toxic_plant_endpoint():
         return jsonify({'error': 'Invalid image file type'}), 400
 
 @app.route('/toxic_plant_detection', methods=['GET'])
+@login_required
 def toxic_plant_detection_page():
     """Renders a page for toxic plant image upload."""
     return render_template('ToxicPlantDetection.html') 
@@ -379,10 +463,12 @@ def toxic_plant_detection_page():
 
 #Amine model 2
 @app.route('/landslide_detection_page', methods=['GET'])
+@login_required
 def landslide_detection_page():
     return render_template('LandslideDetection.html')
 
 @app.route('/detect_landslide', methods=['POST'])
+@login_required
 def detect_landslide_route():
     result = detect_landslide_logic(request)
     if 'error' in result:
